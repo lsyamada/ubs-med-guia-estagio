@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UBS Med — Guia de Estágio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2333;
+    --border: #2a3050;
+    --accent: #4fd1c5;
+    --accent2: #f6ad55;
+    --accent3: #fc8181;
+    --accent4: #68d391;
+    --accent5: #b794f4;
+    --text: #e2e8f0;
+    --text-dim: #718096;
+    --text-muted: #4a5568;
+  }
+
+- { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+background: var(–bg);
+color: var(–text);
+font-family: ‘DM Sans’, sans-serif;
+min-height: 100vh;
+}
+
+/* HEADER */
+header {
+background: linear-gradient(135deg, #0f1117 0%, #1a1f35 50%, #0f1117 100%);
+border-bottom: 1px solid var(–border);
+padding: 2rem 2rem 1.5rem;
+position: sticky;
+top: 0;
+z-index: 100;
+}
+
+.header-inner {
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.logo {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.6rem;
+font-weight: 900;
+color: var(–accent);
+letter-spacing: -0.5px;
+}
+
+.logo span { color: var(–text-dim); font-weight: 400; font-size: 1rem; margin-left: 0.5rem; }
+
+.tabs {
+display: flex;
+gap: 0.5rem;
+margin-top: 1.2rem;
+flex-wrap: wrap;
+}
+
+.tab-btn {
+background: transparent;
+border: 1px solid var(–border);
+color: var(–text-dim);
+padding: 0.45rem 1.1rem;
+border-radius: 999px;
+cursor: pointer;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.82rem;
+font-weight: 500;
+transition: all 0.2s;
+white-space: nowrap;
+}
+
+.tab-btn:hover { border-color: var(–accent); color: var(–accent); }
+.tab-btn.active { background: var(–accent); border-color: var(–accent); color: #0f1117; font-weight: 600; }
+
+/* MAIN */
+main {
+max-width: 1200px;
+margin: 0 auto;
+padding: 2rem;
+}
+
+/* CATEGORY CARDS GRID */
+.section-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.8rem;
+font-weight: 700;
+margin-bottom: 0.5rem;
+color: var(–text);
+}
+
+.section-sub {
+color: var(–text-dim);
+font-size: 0.9rem;
+margin-bottom: 2rem;
+}
+
+.disease-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+gap: 1rem;
+}
+
+.disease-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 12px;
+padding: 1.3rem;
+cursor: pointer;
+transition: all 0.25s;
+position: relative;
+overflow: hidden;
+}
+
+.disease-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0;
+width: 3px; height: 100%;
+}
+
+.disease-card:hover {
+border-color: var(–card-color, var(–accent));
+transform: translateY(-2px);
+box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+.card-tag {
+font-size: 0.7rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 1px;
+color: var(–card-color, var(–accent));
+margin-bottom: 0.6rem;
+font-family: ‘DM Mono’, monospace;
+}
+
+.card-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.1rem;
+font-weight: 700;
+color: var(–text);
+margin-bottom: 0.4rem;
+}
+
+.card-preview {
+font-size: 0.8rem;
+color: var(–text-dim);
+line-height: 1.5;
+}
+
+.card-arrow {
+position: absolute;
+bottom: 1rem; right: 1rem;
+color: var(–card-color, var(–accent));
+font-size: 1rem;
+opacity: 0;
+transition: opacity 0.2s;
+}
+
+.disease-card:hover .card-arrow { opacity: 1; }
+
+/* MODAL */
+.modal-overlay {
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.75);
+z-index: 200;
+display: flex;
+align-items: flex-start;
+justify-content: center;
+padding: 1.5rem;
+overflow-y: auto;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.25s;
+}
+
+.modal-overlay.open {
+opacity: 1;
+pointer-events: all;
+}
+
+.modal {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 16px;
+width: 100%;
+max-width: 760px;
+padding: 2rem;
+margin: auto;
+transform: translateY(20px);
+transition: transform 0.3s;
+}
+
+.modal-overlay.open .modal { transform: translateY(0); }
+
+.modal-header {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+margin-bottom: 1.5rem;
+}
+
+.modal-tag {
+font-size: 0.7rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 1px;
+font-family: ‘DM Mono’, monospace;
+margin-bottom: 0.4rem;
+}
+
+.modal-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.6rem;
+font-weight: 700;
+}
+
+.close-btn {
+background: var(–surface2);
+border: 1px solid var(–border);
+color: var(–text-dim);
+width: 32px; height: 32px;
+border-radius: 50%;
+cursor: pointer;
+font-size: 1rem;
+display: flex; align-items: center; justify-content: center;
+flex-shrink: 0;
+margin-left: 1rem;
+transition: all 0.2s;
+}
+
+.close-btn:hover { background: var(–accent3); color: white; border-color: var(–accent3); }
+
+.section-block {
+margin-bottom: 1.5rem;
+}
+
+.section-block h3 {
+font-size: 0.72rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 1.5px;
+font-family: ‘DM Mono’, monospace;
+color: var(–text-muted);
+margin-bottom: 0.7rem;
+padding-bottom: 0.5rem;
+border-bottom: 1px solid var(–border);
+}
+
+.section-block p, .section-block li {
+font-size: 0.88rem;
+line-height: 1.7;
+color: var(–text-dim);
+}
+
+.section-block ul {
+padding-left: 1.2rem;
+}
+
+.section-block li { margin-bottom: 0.3rem; }
+
+.pill-list {
+display: flex;
+flex-wrap: wrap;
+gap: 0.4rem;
+list-style: none;
+padding: 0;
+}
+
+.pill {
+background: var(–surface2);
+border: 1px solid var(–border);
+border-radius: 999px;
+padding: 0.25rem 0.7rem;
+font-size: 0.78rem;
+color: var(–text-dim);
+font-family: ‘DM Mono’, monospace;
+}
+
+.pill.highlight {
+background: rgba(79,209,197,0.1);
+border-color: var(–accent);
+color: var(–accent);
+}
+
+.alert-box {
+background: rgba(246,173,85,0.08);
+border: 1px solid rgba(246,173,85,0.3);
+border-radius: 8px;
+padding: 0.8rem 1rem;
+font-size: 0.82rem;
+color: var(–accent2);
+line-height: 1.6;
+margin-top: 0.5rem;
+}
+
+/* FLASHCARD SECTION */
+.flashcard-container {
+display: none;
+}
+
+.fc-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1.5rem;
+flex-wrap: wrap;
+gap: 1rem;
+}
+
+.fc-controls {
+display: flex;
+gap: 0.5rem;
+align-items: center;
+}
+
+.fc-filter {
+background: var(–surface);
+border: 1px solid var(–border);
+color: var(–text-dim);
+padding: 0.4rem 0.8rem;
+border-radius: 8px;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.82rem;
+cursor: pointer;
+}
+
+.fc-btn {
+background: var(–surface2);
+border: 1px solid var(–border);
+color: var(–text);
+padding: 0.5rem 1.2rem;
+border-radius: 8px;
+cursor: pointer;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.85rem;
+font-weight: 500;
+transition: all 0.2s;
+}
+
+.fc-btn:hover { border-color: var(–accent); color: var(–accent); }
+.fc-btn.primary { background: var(–accent); border-color: var(–accent); color: #0f1117; font-weight: 600; }
+
+.fc-progress {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.82rem;
+color: var(–text-muted);
+}
+
+.flashcard-scene {
+perspective: 1000px;
+height: 340px;
+margin-bottom: 1.5rem;
+cursor: pointer;
+}
+
+.flashcard {
+width: 100%;
+height: 100%;
+position: relative;
+transform-style: preserve-3d;
+transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.flashcard.flipped { transform: rotateY(180deg); }
+
+.fc-face {
+position: absolute;
+inset: 0;
+backface-visibility: hidden;
+border-radius: 16px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 2rem;
+border: 1px solid var(–border);
+}
+
+.fc-front {
+background: linear-gradient(135deg, var(–surface) 0%, var(–surface2) 100%);
+}
+
+.fc-back {
+background: var(–surface2);
+transform: rotateY(180deg);
+align-items: flex-start;
+justify-content: flex-start;
+overflow-y: auto;
+}
+
+.fc-category {
+font-size: 0.68rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 1.5px;
+font-family: ‘DM Mono’, monospace;
+margin-bottom: 1rem;
+opacity: 0.6;
+}
+
+.fc-question {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.3rem;
+font-weight: 700;
+text-align: center;
+line-height: 1.4;
+color: var(–text);
+}
+
+.fc-hint {
+margin-top: 1.5rem;
+font-size: 0.75rem;
+color: var(–text-muted);
+font-family: ‘DM Mono’, monospace;
+}
+
+.fc-answer-label {
+font-size: 0.68rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 1.5px;
+font-family: ‘DM Mono’, monospace;
+color: var(–accent);
+margin-bottom: 1rem;
+}
+
+.fc-answer {
+font-size: 0.88rem;
+line-height: 1.7;
+color: var(–text-dim);
+width: 100%;
+}
+
+.fc-answer strong { color: var(–accent2); font-weight: 600; }
+
+.fc-nav {
+display: flex;
+gap: 1rem;
+justify-content: center;
+align-items: center;
+flex-wrap: wrap;
+}
+
+.fc-rate {
+display: flex;
+gap: 0.5rem;
+}
+
+.rate-btn {
+padding: 0.5rem 1.5rem;
+border-radius: 8px;
+border: 1px solid;
+cursor: pointer;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.82rem;
+font-weight: 600;
+transition: all 0.2s;
+}
+
+.rate-wrong { background: rgba(252,129,129,0.1); border-color: var(–accent3); color: var(–accent3); }
+.rate-wrong:hover { background: rgba(252,129,129,0.25); }
+.rate-ok { background: rgba(246,173,85,0.1); border-color: var(–accent2); color: var(–accent2); }
+.rate-ok:hover { background: rgba(246,173,85,0.25); }
+.rate-good { background: rgba(104,211,145,0.1); border-color: var(–accent4); color: var(–accent4); }
+.rate-good:hover { background: rgba(104,211,145,0.25); }
+
+.fc-stats {
+display: flex;
+gap: 1.5rem;
+margin-bottom: 1.5rem;
+flex-wrap: wrap;
+}
+
+.stat-item {
+display: flex;
+flex-direction: column;
+}
+
+.stat-num {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.8rem;
+font-weight: 700;
+}
+
+.stat-label {
+font-size: 0.72rem;
+color: var(–text-muted);
+text-transform: uppercase;
+letter-spacing: 1px;
+font-family: ‘DM Mono’, monospace;
+}
+
+/* PAGE VIEWS */
+.page { display: none; }
+.page.active { display: block; }
+
+@media (max-width: 600px) {
+main { padding: 1rem; }
+header { padding: 1.2rem 1rem 1rem; }
+.logo { font-size: 1.2rem; }
+.tabs { gap: 0.4rem; }
+.tab-btn { font-size: 0.76rem; padding: 0.38rem 0.85rem; }
+.flashcard-scene { height: 400px; }
+.fc-question { font-size: 1.1rem; }
+.disease-grid { grid-template-columns: 1fr; }
+}
+
+/* FARMACOTERAPIA */
+.farma-search-bar {
+display: flex;
+gap: 0.6rem;
+margin-bottom: 1.5rem;
+flex-wrap: wrap;
+}
+
+.farma-search {
+flex: 1;
+min-width: 180px;
+background: var(–surface);
+border: 1px solid var(–border);
+color: var(–text);
+padding: 0.6rem 1rem;
+border-radius: 8px;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.88rem;
+outline: none;
+transition: border-color 0.2s;
+}
+
+.farma-search:focus { border-color: var(–accent); }
+.farma-search::placeholder { color: var(–text-muted); }
+
+.farma-filter-btn {
+background: var(–surface);
+border: 1px solid var(–border);
+color: var(–text-dim);
+padding: 0.6rem 1rem;
+border-radius: 8px;
+cursor: pointer;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.82rem;
+transition: all 0.2s;
+white-space: nowrap;
+}
+
+.farma-filter-btn.active { background: var(–accent); border-color: var(–accent); color: #0f1117; font-weight: 600; }
+
+.farma-table-wrap {
+overflow-x: auto;
+border-radius: 12px;
+border: 1px solid var(–border);
+}
+
+table.farma-table {
+width: 100%;
+border-collapse: collapse;
+font-size: 0.83rem;
+}
+
+.farma-table thead tr {
+background: var(–surface2);
+border-bottom: 2px solid var(–border);
+}
+
+.farma-table th {
+text-align: left;
+padding: 0.85rem 1rem;
+font-size: 0.7rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 1px;
+font-family: ‘DM Mono’, monospace;
+color: var(–text-muted);
+white-space: nowrap;
+}
+
+.farma-table td {
+padding: 0.85rem 1rem;
+border-bottom: 1px solid var(–border);
+color: var(–text-dim);
+vertical-align: top;
+line-height: 1.5;
+}
+
+.farma-table tbody tr { background: var(–surface); transition: background 0.15s; }
+.farma-table tbody tr:hover { background: var(–surface2); }
+.farma-table tbody tr:last-child td { border-bottom: none; }
+
+.farma-drug {
+font-weight: 600;
+color: var(–text);
+font-size: 0.88rem;
+}
+
+.farma-class {
+font-size: 0.72rem;
+font-family: ‘DM Mono’, monospace;
+margin-top: 0.2rem;
+}
+
+.farma-dose {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.8rem;
+color: var(–accent2);
+}
+
+.farma-tag {
+display: inline-block;
+padding: 0.15rem 0.55rem;
+border-radius: 999px;
+font-size: 0.68rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+font-family: ‘DM Mono’, monospace;
+margin-bottom: 0.3rem;
+}
+
+.tag-cv    { background: rgba(252,129,129,0.15); color: #fc8181; }
+.tag-meta  { background: rgba(246,173,85,0.15);  color: #f6ad55; }
+.tag-resp  { background: rgba(79,209,197,0.15);  color: #4fd1c5; }
+.tag-psiq  { background: rgba(183,148,244,0.15); color: #b794f4; }
+.tag-infec { background: rgba(104,211,145,0.15); color: #68d391; }
+.tag-end   { background: rgba(246,173,85,0.15);  color: #f6ad55; }
+.tag-gin   { background: rgba(252,129,129,0.15); color: #fc8181; }
+.tag-orto  { background: rgba(118,228,247,0.15); color: #76e4f7; }
+
+.farma-alert {
+background: rgba(252,129,129,0.08);
+border-left: 3px solid var(–accent3);
+padding: 0.3rem 0.6rem;
+border-radius: 0 4px 4px 0;
+font-size: 0.75rem;
+color: var(–accent3);
+margin-top: 0.4rem;
+}
+
+.farma-tip {
+background: rgba(79,209,197,0.08);
+border-left: 3px solid var(–accent);
+padding: 0.3rem 0.6rem;
+border-radius: 0 4px 4px 0;
+font-size: 0.75rem;
+color: var(–accent);
+margin-top: 0.4rem;
+}
+
+.no-results {
+text-align: center;
+padding: 3rem;
+color: var(–text-muted);
+font-size: 0.9rem;
+}
+
+/* RASTREAMENTO */
+.rastreio-filter-bar {
+display: flex;
+gap: 0.5rem;
+margin-bottom: 1.8rem;
+flex-wrap: wrap;
+}
+
+.rastreio-filter-btn {
+background: var(–surface);
+border: 1px solid var(–border);
+color: var(–text-dim);
+padding: 0.45rem 1rem;
+border-radius: 999px;
+cursor: pointer;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.8rem;
+font-weight: 500;
+transition: all 0.2s;
+white-space: nowrap;
+}
+.rastreio-filter-btn:hover { border-color: var(–accent); color: var(–accent); }
+.rastreio-filter-btn.active { background: var(–accent); border-color: var(–accent); color: #0f1117; font-weight: 600; }
+
+.rastreio-section {
+margin-bottom: 2.5rem;
+}
+
+.rastreio-section-header {
+display: flex;
+align-items: center;
+gap: 0.8rem;
+margin-bottom: 1.2rem;
+padding-bottom: 0.7rem;
+border-bottom: 1px solid var(–border);
+}
+
+.rastreio-section-icon {
+font-size: 1.4rem;
+}
+
+.rastreio-section-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.25rem;
+font-weight: 700;
+color: var(–text);
+}
+
+.rastreio-section-badge {
+font-size: 0.68rem;
+font-family: ‘DM Mono’, monospace;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 1px;
+padding: 0.2rem 0.6rem;
+border-radius: 999px;
+margin-left: auto;
+}
+
+.rastreio-cards {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+gap: 0.9rem;
+}
+
+.rastreio-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 12px;
+padding: 1.1rem 1.2rem;
+border-left: 3px solid var(–rc-color, var(–accent));
+transition: box-shadow 0.2s;
+}
+
+.rastreio-card:hover {
+box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
+.rc-header {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+margin-bottom: 0.6rem;
+gap: 0.5rem;
+}
+
+.rc-title {
+font-weight: 700;
+font-size: 0.92rem;
+color: var(–text);
+}
+
+.rc-population {
+font-size: 0.7rem;
+font-family: ‘DM Mono’, monospace;
+color: var(–rc-color, var(–accent));
+background: rgba(79,209,197,0.08);
+padding: 0.15rem 0.5rem;
+border-radius: 4px;
+white-space: nowrap;
+border: 1px solid currentColor;
+opacity: 0.9;
+}
+
+.rc-row {
+display: flex;
+gap: 0.5rem;
+align-items: baseline;
+margin-bottom: 0.3rem;
+font-size: 0.82rem;
+}
+
+.rc-label {
+font-size: 0.68rem;
+font-family: ‘DM Mono’, monospace;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.8px;
+color: var(–text-muted);
+min-width: 70px;
+flex-shrink: 0;
+}
+
+.rc-value {
+color: var(–text-dim);
+line-height: 1.5;
+}
+
+.rc-value strong { color: var(–accent2); font-weight: 600; }
+
+.rc-note {
+margin-top: 0.6rem;
+font-size: 0.76rem;
+color: var(–text-muted);
+background: var(–surface2);
+border-radius: 6px;
+padding: 0.4rem 0.6rem;
+line-height: 1.5;
+}
+
+.rc-alert {
+margin-top: 0.6rem;
+font-size: 0.76rem;
+color: var(–accent3);
+background: rgba(252,129,129,0.06);
+border-left: 2px solid var(–accent3);
+padding: 0.35rem 0.6rem;
+border-radius: 0 6px 6px 0;
+}
+
+.faixa-etaria-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+gap: 1rem;
+}
+
+.faixa-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 12px;
+overflow: hidden;
+}
+
+.faixa-header {
+padding: 0.9rem 1.1rem;
+display: flex;
+align-items: center;
+gap: 0.7rem;
+}
+
+.faixa-icon { font-size: 1.3rem; }
+
+.faixa-title {
+font-family: ‘Playfair Display’, serif;
+font-weight: 700;
+font-size: 1rem;
+color: var(–text);
+}
+
+.faixa-subtitle {
+font-size: 0.72rem;
+color: var(–text-muted);
+font-family: ‘DM Mono’, monospace;
+margin-top: 0.1rem;
+}
+
+.faixa-body { padding: 0 1.1rem 1rem; }
+
+.faixa-item {
+display: flex;
+gap: 0.6rem;
+padding: 0.45rem 0;
+border-bottom: 1px solid var(–border);
+font-size: 0.81rem;
+align-items: flex-start;
+}
+
+.faixa-item:last-child { border-bottom: none; }
+
+.faixa-dot {
+width: 7px; height: 7px;
+border-radius: 50%;
+margin-top: 0.35rem;
+flex-shrink: 0;
+}
+
+.faixa-exam { color: var(–text-dim); line-height: 1.5; }
+.faixa-freq {
+margin-left: auto;
+font-size: 0.68rem;
+font-family: ‘DM Mono’, monospace;
+color: var(–text-muted);
+white-space: nowrap;
+padding-left: 0.5rem;
+flex-shrink: 0;
+}
+
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">UBS<span>Med — Guia de Estágio</span></div>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showPage('resumos')">📋 Resumos Clínicos</button>
+      <button class="tab-btn" onclick="showPage('flashcards')">🃏 Flashcards</button>
+      <button class="tab-btn" onclick="showPage('farma')">💊 Farmacoterapia</button>
+      <button class="tab-btn" onclick="showPage('rastreio')">🔎 Rastreamento</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- RESUMOS PAGE -->
+  <div id="page-resumos" class="page active">
+    <h2 class="section-title">Resumos Clínicos</h2>
+    <p class="section-sub">Clique em uma condição para ver epidemiologia, fisiopatologia, clínica, exames e tratamento.</p>
+    <div class="disease-grid" id="diseaseGrid"></div>
+  </div>
+
+  <!-- FLASHCARDS PAGE -->
+
+  <div id="page-flashcards" class="page">
+    <h2 class="section-title">Flashcards</h2>
+
+```
+<div class="fc-stats">
+  <div class="stat-item">
+    <span class="stat-num" id="stat-total">0</span>
+    <span class="stat-label">Total</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" style="color:var(--accent4)" id="stat-good">0</span>
+    <span class="stat-label">Soube</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num" style="color:var(--accent3)" id="stat-wrong">0</span>
+    <span class="stat-label">Errou</span>
+  </div>
+</div>
+
+<div class="fc-header">
+  <div class="fc-controls">
+    <select class="fc-filter" id="fcFilter" onchange="filterCards()">
+      <option value="all">Todas as categorias</option>
+    </select>
+    <button class="fc-btn" onclick="shuffleCards()">🔀 Embaralhar</button>
+    <button class="fc-btn primary" onclick="resetStats()">↺ Reiniciar</button>
+  </div>
+  <div class="fc-progress" id="fcProgress">1 / 0</div>
+</div>
+
+<div class="flashcard-scene" onclick="flipCard()">
+  <div class="flashcard" id="flashcard">
+    <div class="fc-face fc-front">
+      <div class="fc-category" id="fcCategory"></div>
+      <div class="fc-question" id="fcQuestion">Carregando...</div>
+      <div class="fc-hint">Clique para revelar a resposta</div>
+    </div>
+    <div class="fc-face fc-back">
+      <div class="fc-answer-label">✓ Resposta</div>
+      <div class="fc-answer" id="fcAnswer"></div>
+    </div>
+  </div>
+</div>
+
+<div class="fc-nav">
+  <button class="fc-btn" onclick="prevCard()">← Anterior</button>
+  <div class="fc-rate" id="rateButtons" style="display:none">
+    <button class="rate-btn rate-wrong" onclick="rateCard('wrong')">✗ Não soube</button>
+    <button class="rate-btn rate-ok" onclick="rateCard('ok')">~ Parcial</button>
+    <button class="rate-btn rate-good" onclick="rateCard('good')">✓ Soube</button>
+  </div>
+  <button class="fc-btn" onclick="nextCard()">Próximo →</button>
+</div>
+```
+
+  </div>
+
+  <!-- FARMACOTERAPIA PAGE -->
+
+  <div id="page-farma" class="page">
+    <h2 class="section-title">Farmacoterapia</h2>
+    <p class="section-sub">Principais medicamentos usados na APS — doses, indicações, contraindicações e alertas.</p>
+
+```
+<div class="farma-search-bar">
+  <input class="farma-search" type="text" id="farmaSearch" placeholder="🔍  Buscar medicamento, classe ou patologia..." oninput="renderFarma()">
+  <button class="farma-filter-btn active" data-cat="all" onclick="setFarmaFilter('all',this)">Todos</button>
+  <button class="farma-filter-btn" data-cat="CV" onclick="setFarmaFilter('CV',this)">❤️ CV</button>
+  <button class="farma-filter-btn" data-cat="Meta" onclick="setFarmaFilter('Meta',this)">🧬 Metab.</button>
+  <button class="farma-filter-btn" data-cat="Resp" onclick="setFarmaFilter('Resp',this)">🫁 Resp.</button>
+  <button class="farma-filter-btn" data-cat="Psiq" onclick="setFarmaFilter('Psiq',this)">🧠 Psiq.</button>
+  <button class="farma-filter-btn" data-cat="Infec" onclick="setFarmaFilter('Infec',this)">🦠 Infec.</button>
+  <button class="farma-filter-btn" data-cat="End" onclick="setFarmaFilter('End',this)">⚗️ Endócr.</button>
+  <button class="farma-filter-btn" data-cat="Orto" onclick="setFarmaFilter('Orto',this)">🦴 Ortop./Musc.</button>
+</div>
+
+<div class="farma-table-wrap">
+  <table class="farma-table">
+    <thead>
+      <tr>
+        <th style="min-width:160px">Medicamento</th>
+        <th style="min-width:110px">Área</th>
+        <th style="min-width:200px">Indicação Principal</th>
+        <th style="min-width:200px">Dose Usual</th>
+        <th style="min-width:220px">Contraindicações / Alertas</th>
+        <th style="min-width:200px">Observações Clínicas</th>
+      </tr>
+    </thead>
+    <tbody id="farmaTableBody"></tbody>
+  </table>
+</div>
+```
+
+  </div>
+
+  <!-- RASTREAMENTO PAGE -->
+
+  <div id="page-rastreio" class="page">
+    <h2 class="section-title">Rastreamento & Prevenção</h2>
+    <p class="section-sub">Exames periódicos por faixa etária e rastreamentos oncológicos baseados nas diretrizes do MS, INCA, SBR e USPSTF.</p>
+
+```
+<div class="rastreio-filter-bar">
+  <button class="rastreio-filter-btn active" onclick="setRastreioView('cancer', this)">🎗️ Câncer</button>
+  <button class="rastreio-filter-btn" onclick="setRastreioView('cv', this)">❤️ Cardiovascular</button>
+  <button class="rastreio-filter-btn" onclick="setRastreioView('metabolico', this)">🧬 Metabólico</button>
+  <button class="rastreio-filter-btn" onclick="setRastreioView('osseo', this)">🦴 Ósseo/Renal</button>
+  <button class="rastreio-filter-btn" onclick="setRastreioView('infeccioso', this)">🦠 Infeccioso/IST</button>
+  <button class="rastreio-filter-btn" onclick="setRastreioView('faixa', this)">👤 Por Faixa Etária</button>
+</div>
+
+<div id="rastreio-content"></div>
+```
+
+  </div>
+
+</main>
+
+<!-- MODAL -->
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalContent">
+    <div class="modal-header">
+      <div>
+        <div class="modal-tag" id="modalTag"></div>
+        <div class="modal-title" id="modalTitle"></div>
+      </div>
+      <button class="close-btn" onclick="closeModalBtn()">✕</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const diseases = [
+  {
+    id: 'has',
+    category: 'Crônica — Cardiovascular',
+    color: '#fc8181',
+    title: 'Hipertensão Arterial Sistêmica',
+    preview: 'Prevalência ~35% em adultos; principal fator de risco CV no Brasil.',
+    epidemio: 'Afeta aproximadamente 35% dos adultos brasileiros (≈36 milhões). Prevalência aumenta com idade, sedentarismo, obesidade, etnia negra e histórico familiar. Principal causa de doença cardiovascular, AVC e IRC no país. Subdiagnóstico e baixa adesão ao tratamento são desafios centrais na APS.',
+    fisio: 'Multifatorial: aumento do débito cardíaco e/ou resistência vascular periférica. Mecanismos centrais: ativação do SRAA (retenção de Na+ e vasoconstrição), hiperatividade simpática, disfunção endotelial (↓ NO), rigidez arterial progressiva. Em obesos: hiperinsulinemia promove retenção sódica e ativação adrenérgica. Estresse oxidativo perpetua inflamação vascular.',
+    clinica: 'Geralmente assintomática por anos (hipertensão silenciosa). Quando sintomática: cefaleia occipital matinal, tontura, epistaxe, dispneia. Em crises hipertensivas: PAS>180 ou PAD>120 — pode cursar com dor torácica, alteração visual, déficit neurológico focal (urgência/emergência). Exame físico: 2ª bulha hiperfonética, possível 4ª bulha, sopro carotídeo, pulsos assimétricos.',
+    exames: ['PA em ambos os braços (3 medidas em 2 ocasiões)', 'Hemograma, creatinina, ureia, eletrólitos (K+)', 'Glicemia em jejum + HbA1c', 'Lipidograma completo', 'EAS (proteinúria)', 'ECG de repouso', 'Fundo de olho (lesão de órgão-alvo)', 'MAPA / MRPA se necessário'],
+    tratamento: 'Meta: PA < 130/80 mmHg (alto risco CV) ou <140/90 mmHg (baixo-moderado). 1ª linha: IECA/BRA + BCC dihidropiridínico ± diurético tiazídico. Casos resistentes: espironolactona. Modificação do estilo de vida essencial: dieta DASH, restrição de sódio (<5g/dia), atividade física 150min/semana, cessação tabágica, controle de peso. Seguimento: consulta 30-60 dias após início ou ajuste; estável → semestral.',
+    alerta: 'Encaminhar ao especialista: HAS resistente, suspeita de HAS secundária (<40 anos, hipocalemia sem diurético, HAS refratária), lesão de órgão-alvo grave.',
+  },
+  {
+    id: 'dm2',
+    category: 'Crônica — Metabólica',
+    color: '#f6ad55',
+    title: 'Diabetes Mellitus Tipo 2',
+    preview: 'Afeta ~16,8 milhões de brasileiros; rastreamento na APS é essencial.',
+    epidemio: 'Cerca de 16,8 milhões de adultos no Brasil (prevalência ~11,3%). 4ª maior do mundo. Subdiagnóstico elevado. Fatores de risco: obesidade, sedentarismo, HAS, dislipidemia, histórico familiar, gestação com DMG, etnia, idade >45 anos. Principal causa de IRC, amputações não-traumáticas e cegueira adquirida.',
+    fisio: 'Resistência à insulina em músculo/fígado/tecido adiposo + disfunção progressiva das células β pancreáticas. Glicotoxicidade e lipotoxicidade perpetuam a deterioração. Adipocinas pró-inflamatórias (TNF-α, IL-6) de tecido adiposo visceral amplificam resistência insulínica. Glucagon elevado por disfunção das células α. Resultado: hiperglicemia pós-prandial e de jejum.',
+    clinica: 'Início insidioso — frequentemente assintomático por anos. Quando sintomático: poliúria, polidipsia, polifagia, emagrecimento inexplicado, fadiga, visão turva. Complicações crônicas: retinopatia (visão), nefropatia (proteinúria, IRC), neuropatia (parestesia distal "em meia/luva", dor), pé diabético, doença cardiovascular acelerada.',
+    exames: ['Glicemia de jejum ≥126 mg/dL em 2 ocasiões', 'HbA1c ≥6,5%', 'TOTG 2h ≥200 mg/dL', 'Glicemia aleatória ≥200 + sintomas', 'Microalbuminúria anual (rastreio nefropatia)', 'Fundo de olho anual', 'Creatinina + TFGe', 'Lipidograma, ECG, ABI (isquemia periférica)'],
+    tratamento: 'Meta: HbA1c <7% (individualizar). 1ª linha: Metformina 500–2550mg/dia (se TFGe>30). Associar conforme necessidade: iSGLT2 (empagliflozina/dapagliflozina) — proteção renal e CV; GLP-1 RA (semaglutida/liraglutida) — redução de peso. Sulfonilureias como alternativa de menor custo. Insulinoterapia quando HbA1c>10% ou falha oral. Educação em diabetes, autocuidado do pé, dieta e exercício fundamentais.',
+    alerta: 'Pé diabético de qualquer grau → avaliação urgente. HbA1c persistentemente >9% apesar de terapia dupla → referência. Nefropatia com TFGe<30 → nefrologista.',
+  },
+  {
+    id: 'asma',
+    category: 'Respiratória',
+    color: '#4fd1c5',
+    title: 'Asma',
+    preview: 'Doença inflamatória crônica das vias aéreas com broncoespasmo reversível.',
+    epidemio: 'Afeta ~20 milhões de brasileiros (10% da população). Uma das doenças crônicas mais comuns na infância. Fatores de risco: atopia, rinite alérgica, histórico familiar, exposição a alérgenos, tabagismo materno, prematuridade. Alta morbimortalidade prevenível com tratamento adequado.',
+    fisio: 'Inflamação crônica mediada por IgE e eosinófilos → hiperreatividade brônquica. Exposição ao gatilho: degranulação de mastócitos → liberação de histamina, leucotrienos, prostaglandinas → broncoespasmo + hipersecreção + edema mucoso. Remodelamento brônquico ocorre com doença não controlada (fibrose subepitelial, hipertrofia muscular lisa).',
+    clinica: 'Tríade clássica: sibilância, dispneia e tosse (tipicamente noturna/matinal). Sintomas variáveis e reversíveis. Gatilhos comuns: alérgenos, exercício, ar frio, infecções respiratórias, aspirina, beta-bloqueadores. Exame: sibilos difusos bilaterais na expiração, uso de musculatura acessória nas crises. Classificar controle: bem controlada / parcialmente / não controlada.',
+    exames: ['Espirometria com broncodilatador (obstrução reversível: ↑VEF1 ≥12% e 200mL)', 'Peak flow diário (variabilidade >20%)', 'Hemograma (eosinofilia)', 'IgE total e RAST (se disponível)', 'Rx tórax (excluir complicações)', 'Teste cutâneo alérgico (referência)'],
+    tratamento: 'GINA 2023: Step 1 (sintomas ocasionais): SABA conforme necessidade ou baixa dose de CI+formoterol SOS. Step 2: CI baixa dose diária. Step 3: CI baixo + LABA. Step 4: CI médio-alto + LABA. Step 5: biologicos (benralizumabe, mepolizumabe). No Brasil: beclometasona + formoterol disponíveis pelo SUS (Componente Especializado). Evitar gatilhos. Plano de ação escrito para crises.',
+    alerta: 'Crise grave: SpO2<92%, FR>30, sem melhora com SABA → emergência hospitalar imediata. Reavaliação após toda exacerbação.',
+  },
+  {
+    id: 'dpoc',
+    category: 'Respiratória',
+    color: '#4fd1c5',
+    title: 'DPOC',
+    preview: 'Doença pulmonar obstrutiva crônica associada ao tabagismo em >80% dos casos.',
+    epidemio: '~12% da população adulta brasileira (>40 anos). 3ª causa de morte no mundo. Em >80% dos casos: tabagismo (carga tabágica >10 maços-ano). Outros fatores: exposição ocupacional, queima de biomassa, déficit de alfa-1-antitripsina. Subdiagnóstico elevadíssimo — muitos não sabem que têm.',
+    fisio: 'Inalação de partículas → resposta inflamatória (macrófagos, neutrófilos, linfócitos CD8+) → destruição do parênquima (enfisema) + espessamento de parede brônquica (bronquite crônica). Perda de retração elástica → aprisionamento aéreo → hiperinsuflação. Desequilíbrio protease/antiprotease. Hipoxemia crônica → hipertensão pulmonar → cor pulmonale.',
+    clinica: 'Tríade: tosse crônica produtiva, dispneia progressiva aos esforços, história tabágica. Exame: tórax em barril, hipersonoridade, murmúrio vesicular diminuído, sibilos e roncos. Escala mMRC para dispneia. Classificação GOLD: baseada em VEF1 e sintomas (grupos A-D). Exacerbações: ↑dispneia + ↑escarro + ↑purulência.',
+    exames: ['Espirometria pós-BD: VEF1/CVF<0,70 (critério diagnóstico)', 'Rx tórax (hiperinsuflação, retificação de diafragma)', 'TC de tórax (enfisema, bronquiectasias)', 'Gasometria arterial (hipoxemia, hipercapnia)', 'Hemograma (poliglobulia)', 'ECG (cor pulmonale)'],
+    tratamento: 'GOLD 2024: Broncodilatadores são base — SABA/SAMA para resgate; LABA + LAMA para manutenção (dupla BD superior a monoterapia). CI: apenas se eosinófilos ≥300 ou exacerbações frequentes (tripla terapia: LABA+LAMA+CI). Oxigenoterapia domiciliar se PaO2<55mmHg. Reabilitação pulmonar. Cessação do tabagismo é a intervenção mais eficaz. Vacinas: influenza, pneumocócica, COVID-19.',
+    alerta: 'Exacerbação grave (SpO2<88%, FR>30, rebaixamento) → hospitalização. Investigar alfa-1-antitripsina em jovens sem tabagismo.',
+  },
+  {
+    id: 'depressao',
+    category: 'Saúde Mental',
+    color: '#b794f4',
+    title: 'Depressão',
+    preview: 'Transtorno mais prevalente na APS; frequentemente subdiagnosticado.',
+    epidemio: '~11 milhões de brasileiros afetados (5,8% da população). Brasil tem maior prevalência da América Latina. Mais comum em mulheres (2:1), idosos e indivíduos com doenças crônicas. Causa líder de incapacidade globalmente. Na APS: 20-40% dos pacientes têm algum transtorno depressivo.',
+    fisio: 'Hipótese monoaminérgica: redução de serotonina, noradrenalina e dopamina nas sinapses. Disfunção do eixo HHA (hipercortisolemia). Neuroplasticidade reduzida (↓BDNF). Inflamação sistêmica (↑IL-6, TNF-α, PCR) — depressão como condição neuroinflamatória. Alterações estruturais: atrofia hipocampal, hiperatividade amigdaliana.',
+    clinica: 'DSM-5: ≥5 sintomas por ≥2 semanas, incluindo humor deprimido e/ou anedonia. Outros: alterações do sono, apetite/peso, fadiga, dificuldade de concentração, sentimentos de culpa/inutilidade, pensamentos suicidas. PHQ-9 ≥10 = triagem positiva. Apresentação somática comum na APS (dor, fadiga, queixas GI). Sempre perguntar sobre ideação suicida (protocolo de segurança).',
+    exames: ['PHQ-9 (rastreio e monitoramento)', 'TSH (excluir hipotireoidismo)', 'Hemograma (anemia)', 'Vitamina D, B12 (em casos específicos)', 'CIAP-2: P76 (registro em APS)'],
+    tratamento: 'Leve-moderada: psicoeducação + psicoterapia (TCC, preferencial). Moderada-grave: antidepressivo + psicoterapia. 1ª linha: ISRS (sertralina 50-200mg, escitalopram 10-20mg, fluoxetina 20-60mg). IRSN (venlafaxina, duloxetina): quando dor crônica associada. Início: 4-6 semanas para resposta; manutenção por mínimo 6-12 meses após remissão. CAPS: casos graves, risco de suicídio, psicóticos.',
+    alerta: 'SEMPRE avaliar risco de suicídio. Ideação com plano/intenção → encaminhamento urgente ao CAPS ou SAMU. Depressão bipolar não diagnosticada: antidepressivo pode desencadear mania.',
+  },
+  {
+    id: 'ansiedade',
+    category: 'Saúde Mental',
+    color: '#b794f4',
+    title: 'Transtorno de Ansiedade Generalizada',
+    preview: 'TAG: preocupação excessiva e incontrolável com múltiplos temas por ≥6 meses.',
+    epidemio: 'Prevalência: 5-7% da população geral; mais comum em mulheres. Co-ocorrência com depressão em 50-60% dos casos. Alta prevalência de somatizações (dor, dispepsia, palpitações). Frequente subdiagnóstico — muitas vezes investigado exaustivamente do ponto de vista orgânico antes do diagnóstico.',
+    fisio: 'Hiperatividade da amígdala com modulação insuficiente do córtex pré-frontal. Disfunção gabaérgica (↓GABA) e serotonérgica. Eixo HHA hiperativo → hipercortisolemia crônica. Sistema simpático hiperativado → taquicardia, sudorese, tensão muscular. Processamento de ameaças enviesado: superestimação de perigo.',
+    clinica: 'Preocupação excessiva e incontrolável com múltiplos temas (trabalho, família, saúde, finanças) por ≥6 meses. Sintomas físicos: tensão muscular, fadiga, irritabilidade, dificuldade de concentração, insônia, cefaleia. GAD-7 ≥10 = triagem positiva. Diferenciar: TAG, fobia específica, TOC, TEPT, transtorno do pânico.',
+    exames: ['GAD-7 (rastreio)', 'TSH (hipertireoidismo: causa orgânica)', 'Glicemia (hipoglicemia)', 'ECG se palpitações', 'Holter se arritmia suspeitada'],
+    tratamento: 'Psicoterapia (TCC) como 1ª linha em leve-moderada. Farmacoterapia: ISRS (1ª linha), IRSN (venlafaxina, duloxetina). Buspirona: alternativa. Benzodiazepínicos: apenas curto prazo (máx 2-4 sem) — risco de dependência. Evitar cafeína, álcool. Técnicas de relaxamento, mindfulness. Mínimo 12 meses de tratamento após remissão.',
+    alerta: 'Benzodiazepínicos: prescrever com extrema cautela em idosos (risco de quedas e confusão). Não substituem o tratamento de primeira linha.',
+  },
+  {
+    id: 'itu',
+    category: 'Aguda — Infecciosa',
+    color: '#68d391',
+    title: 'Infecção do Trato Urinário',
+    preview: 'Uma das infecções bacterianas mais comuns; 50-60% das mulheres terão ao menos um episódio.',
+    epidemio: '50-60% das mulheres terão pelo menos um episódio ao longo da vida. Recorrência em 25% dentro de 6 meses. Em homens: incomum antes dos 60 anos; investigar causa subjacente. Agente mais comum: E. coli (80%). Outros: Klebsiella, Staphylococcus saprophyticus (jovens).',
+    fisio: 'Colonização perineal → ascensão pela uretra → adesão ao urotélio → invasão mucosa → inflamação local. Fatores favorecidos: uretra feminina curta, atividade sexual, menopausa (↓estrogênio → ↑pH vaginal), instrumentação urológica, obstrução, DM, imunossupressão. Na cistite: inflamação vesical. Na pielonefrite: acometimento renal com resposta sistêmica.',
+    clinica: 'Cistite: disúria, polaciúria, urgência miccional, dor suprapúbica. Sem febre. Pielonefrite: febre, calafrios, dor lombar (punho-percussão +), náusea/vômito + sintomas de cistite. ITU complicada: gravidez, homem, imunossuprimido, anomalia estrutural urológica, pielonefrite.',
+    exames: ['EAS: piúria (leucócitos >10/campo), nitritos, hematúria', 'Urocultura: indicada em ITU complicada, recorrente, gestantes, pielonefrite', 'Hemograma + PCR (pielonefrite)', 'USG renal (pielonefrite, suspeita de obstrução)'],
+    tratamento: 'Cistite não complicada: Nitrofurantoína 100mg 6/6h × 5 dias ou Fosfomicina 3g dose única ou SMX-TMP 160/800 12/12h × 3 dias. Pielonefrite leve-moderada (ambulatorial): Ciprofloxacino 500mg 12/12h × 7 dias ou SMX-TMP × 14 dias. Pielonefrite grave: hospitalização + antibioticoterapia EV. Gestantes: tratar até bacteriúria assintomática (urocultura de rastreio no 1º trimestre).',
+    alerta: 'Hematúria macroscópica persistente após tratamento → investigar neoplasia urotelial. ITU recorrente (>3/ano) em mulher → profilaxia e avaliação urológica.',
+  },
+  {
+    id: 'prenatal',
+    category: 'Saúde da Mulher',
+    color: '#f6ad55',
+    title: 'Pré-natal de Baixo Risco',
+    preview: 'Mínimo de 6 consultas; início até 12 semanas. Protocolo do MS/2022.',
+    epidemio: 'Meta nacional: ≥6 consultas pré-natais (MS/OMS). Início idealmente até a 12ª semana. No Brasil: 98% das parturientes tiveram ao menos 1 consulta, mas apenas 60% completaram 7+. Acesso na UBS é porta de entrada prioritária. Identificação precoce de riscos reduz mortalidade materna e perinatal.',
+    fisio: 'Adaptações fisiológicas: volume sanguíneo ↑45%, débito cardíaco ↑40%, resistência vascular ↓ (progesterona), TFG ↑50%. Hemodiluição fisiológica (↓Hb). Relaxamento de esfíncter esofágico inferior (refluxo). Compressão ureteral → ITU mais frequente. Insulinorresistência progressiva (DMG em predispostas).',
+    clinica: 'Cálculo de IG: DUM ou USG 1º trimestre. Sintomas comuns: náuseas/vômitos (1º tri), lombalgia, refluxo, varizes, câimbras, edema MMII (2º/3º tri). SSVV, altura uterina, BCF (Doppler/Pinard), edema, PA a cada consulta. Movimentação fetal (>10/2h após 28 sem). Classificação de risco gestacional.',
+    exames: ['1ª consulta: Hb/Ht, tipagem sanguínea, coombs indireto, glicemia, VDRL, anti-HIV, HBsAg, toxoplasmose IgG/IgM, urocultura, citopatológico se necessário, TSH', 'USG morfológica 1º tri (11-14sem): translucência nucal', 'USG morfológica 2º tri (20-24sem)', 'TOTG 75g (24-28 semanas): rastreio DMG', 'VDRL, HIV repetir no 3º trimestre', 'Streptococcus agalactiae (35-37 semanas)'],
+    tratamento: 'Ácido fólico 400mcg/dia (iniciar pré-concepção até 12 semanas). Sulfato ferroso 40mg/dia (a partir de 20 semanas). Vacinas: dTpa (27-36 sem), influenza, COVID-19. Orientações: nutrição, atividade física moderada, cessação de tabaco/álcool. Plano de parto. Sinais de alarme: sangramento, cefaleia intensa, epigastralgia, edema súbito, ausência de movimentação fetal.',
+    alerta: 'Encaminhar ao pré-natal de alto risco: DM pré-gestacional, HAS crônica, cardiopatia, gemelar, história de perdas recorrentes, cirurgia uterina prévia.',
+  },
+  {
+    id: 'puericultura',
+    category: 'Saúde da Criança',
+    color: '#68d391',
+    title: 'Puericultura',
+    preview: 'Acompanhamento sistemático de crescimento, desenvolvimento e vacinação na infância.',
+    epidemio: 'Primeira semana de vida: consulta obrigatória (Teste do Pezinho, olhinho, orelhinha). Calendário mínimo de consultas: 1ª semana, 1, 2, 4, 6, 9, 12, 18 meses; 2, 3, 4, 5, 6 anos. Brasil tem uma das maiores coberturas vacinais do mundo, mas queda recente preocupa. Aleitamento materno exclusivo até 6 meses e complementar até 2 anos.',
+    fisio: 'Neurodesenvolvimento intenso nos primeiros 3 anos (período crítico de plasticidade). Crescimento: controlado por GH, IGF-1, hormônios tireoidianos e sexuais (puberdade). Imunidade: passiva materna até 6 meses → ativa via vacinação. Desenvolvimento motor, linguagem, cognição e socioafetivo avaliados em marcos específicos por faixa etária.',
+    clinica: 'Avaliação: peso, comprimento/estatura, PC (até 3 anos) → curvas OMS no Cartão da Criança. Marcos de desenvolvimento: sorriso social (2m), sustento de cabeça (3m), sentar sem apoio (6-8m), primeiras palavras (12m), marcha (12-15m), frases (24m). Denver II ou Teste de Triagem de Desenvolvimento. Avaliação nutricional, dentição, acuidade visual e auditiva.',
+    exames: ['Triagem neonatal (Pezinho, Olhinho, Orelhinha, Linguinha, Coraçãozinho)', 'Hb/Ht: 6-12 meses (anemia ferropriva)', 'EAS: rotina anual após 2 anos', 'Glicemia em obesos/sobrepeso', 'Lipidograma se fatores de risco familiares'],
+    tratamento: 'Vacinas do PNI: BCG, Hepatite B (ao nascer); VRH, Penta, VIP, PCV10 (2,4,6 meses); Men C (3,5,12m); SRC, VZ, FA (12m); DTP, VOP (15m); DTP+VOP reforço (4 anos). Ferro profilático: 1mg/kg/dia dos 6 meses até 2 anos (aleitamento exclusivo); prematuro: 2mg/kg/dia a partir de 30 dias. Vitamina D: 400-600 UI/dia até 2 anos. Fluoreto: oral ou tópico para saúde bucal.',
+    alerta: 'Sinais de alarme do desenvolvimento: ausência de sorriso social aos 3m, não segura a cabeça aos 5m, não senta aos 10m, não anda aos 18m, regressão de habilidades → encaminhamento urgente.',
+  },
+  {
+    id: 'dislipidemia',
+    category: 'Crônica — Metabólica',
+    color: '#f6ad55',
+    title: 'Dislipidemia',
+    preview: 'Fator de risco CV modificável; rastreio a partir dos 10 anos em casos de risco.',
+    epidemio: 'Colesterol elevado afeta ~40% dos adultos brasileiros. Dislipidemia aterogênica (↑LDL, ↑TG, ↓HDL) associada à síndrome metabólica em crescimento. Rastreio: a partir dos 20 anos (com FR) ou 35/45 anos (sem FR) para homens/mulheres. Em crianças: se histórico familiar de hipercolesterolemia familiar ou DCV precoce.',
+    fisio: 'LDL: penetra o endotélio → oxidado → captado por macrófagos → células espumosas → placa aterosclerótica. Inflamação, ruptura de placa → trombose → SCA/AVC. HDL: transporte reverso do colesterol (protetor). Triglicerídeos elevados: associados à pancreatite aguda (>500mg/dL) e ↑risco CV independente.',
+    clinica: 'Geralmente assintomática. Xantelasmas (pálpebras), xantomas (tendíneos, tuberosos) em hipercolesterolemia familiar. Arco corneal antes dos 45 anos: sinal de HF. Pancreatite: hipertrigliceridemia grave. Diagnóstico bioquímico: lipidograma.',
+    exames: ['Lipidograma completo: CT, LDL, HDL, TG, não-HDL', 'Calcular risco cardiovascular global (Escore de Framingham / ERG)', 'Glicemia, TSH (causas secundárias)', 'CK basal antes de estatina', 'Transaminases (ALT) basal'],
+    tratamento: 'Metas de LDL pelo risco CV: baixo <116; moderado <100; alto <70; muito alto <55 mg/dL. 1ª linha: Estatinas (sinvastatina, rosuvastatina, atorvastatina) — reduzem LDL 30-55%. Hipertrigliceridemia: fibratos (bezafibrato, fenofibrato); ômega-3 em doses altas (>2g/dia). Mudança de estilo de vida: dieta pobre em saturados e trans, atividade física, controle de peso. Ezetimiba: associar se meta não atingida.',
+    alerta: 'Miopatia por estatina: dor muscular + ↑CK >10× LSN → suspender. Hipercolesterolemia Familiar (LDL>190 sem causa secundária): referência ao especialista, cascata familiar.',
+  },
+  {
+    id: 'hipotireoidismo',
+    category: 'Crônica — Endócrina',
+    color: '#f6ad55',
+    title: 'Hipotireoidismo',
+    preview: 'Afeta 1-2% da população; mais prevalente em mulheres e idosos.',
+    epidemio: 'Prevalência: 1-2% na população geral; até 5-10% em mulheres acima de 60 anos. Principal causa: Tireoidite de Hashimoto (autoimune). Outras: pós-tireoidectomia, radioiodoterapia, medicamentos (amiodarona, lítio). Hipotireoidismo subclínico: TSH elevado com T4 livre normal — prevalência de ~10% em idosas.',
+    fisio: 'Deficiência de hormônios tireoidianos → redução do metabolismo basal. T3/T4 reduzidos → ↑TSH (feedback). T3 é o hormônio ativo (conversão periférica de T4). Hashimoto: anticorpos anti-TPO e anti-Tg destroem o parênquima tireoidiano por mecanismo autoimune. Efeitos sistêmicos: ↓débito cardíaco, ↓motilidade intestinal, ↓metabolismo lipídico, ↓termorregulação.',
+    clinica: 'Síndrome hipometabólica: fadiga intensa, ganho de peso, intolerância ao frio, constipação, pele seca e fria, queda de cabelo, mixedema (edema duro), bradicardia, reflexos lentos, lentificação cognitiva, depressão. Em mulheres: irregularidade menstrual, infertilidade. Na gravidez: risco de abortamento e comprometimento do neurodesenvolvimento fetal.',
+    exames: ['TSH (rastreio inicial)', 'T4 livre (se TSH alterado)', 'Anti-TPO (confirma Hashimoto)', 'Lipidograma (dislipidemia associada)', 'Hemograma (anemia normocítica)', 'USG de tireoide (se bócio ou nódulo)'],
+    tratamento: 'Levotiroxina em jejum (30min antes do café). Dose inicial: 1,6mcg/kg/dia (adultos jovens saudáveis) ou 25-50mcg (idosos, cardiopatas). Meta: TSH entre 0,5-2,5 mUI/L (adultos) ou 0,5-4,0 (idosos). Ajuste de 25mcg a cada 4-6 semanas. Gravidez: meta TSH <2,5 (1º tri) e <3,0 (2º/3º tri) — dose geralmente aumenta 30-50%. Manutenção indefinida. Interações: cálcio, ferro, IBP reduzem absorção (espaçar 4h).',
+    alerta: 'Coma mixedematoso: emergência rara, mortalidade alta — corticóide + T4 EV + UTI. Nódulo tireoidiano: investigar com USG e PAAF se indicado.',
+  },
+  // ── ORTOPEDIA & OSTEOMUSCULAR ──────────────────────────────────
+  {
+    id: 'lombalgia',
+    category: 'Ortopedia / Osteomuscular',
+    color: '#76e4f7',
+    title: 'Lombalgia Inespecífica',
+    preview: 'Queixa musculoesquelética mais comum na APS; em >90% dos casos é inespecífica.',
+    epidemio: 'Afeta ~80% das pessoas ao longo da vida. É a principal causa de afastamento laboral e incapacidade no Brasil e no mundo. Pico de prevalência entre 30–50 anos. Em >90% dos casos na APS é inespecífica (sem causa estrutural identificável). Cronicidade ocorre em ~10% dos casos e responde por ~90% dos custos.',
+    fisio: 'Inespecífica: disfunção de músculos paravertebrais, ligamentos, facetas e discos sem lesão estrutural definida. Fatores biopsicossociais são determinantes na cronificação: catastrofização, medo-evitação, depressão, insatisfação laboral. Lombalgia específica: hérnia discal (compressão radicular), estenose de canal, fratura, infecção, neoplasia — juntas representam <10% dos casos.',
+    clinica: 'Dor em região lombar (L1–S1), uni ou bilateral, com ou sem irradiação. Sinais de alerta ("red flags"): febre, perda de peso inexplicada, história de câncer, trauma, idade >50 anos, dor noturna que não melhora, déficit neurológico progressivo, síndrome da cauda equina (retenção urinária, anestesia em sela). Lasègue positivo sugere comprometimento radicular L4-S1.',
+    exames: ['Sem exames na fase aguda (<4-6 semanas) na ausência de red flags', 'Rx lombar: apenas se suspeita de fratura, neoplasia ou espondilite', 'RNM lombar: se déficit neurológico progressivo, suspeita de hérnia, estenose ou infecção', 'Hemograma + VHS/PCR: se suspeita inflamatória/infecciosa'],
+    tratamento: 'Fase aguda: AINE (ibuprofeno 400–600mg 8/8h ou naproxeno 500mg 12/12h) × 5–7 dias; calor local; manter atividade física tolerada (repouso absoluto é contraindicado). Miorrelaxantes (ciclobenzaprina) apenas por curto prazo se espasmo importante. Crônica: exercício físico supervisionado (1ª linha), TCC, fisioterapia, acupuntura. Evitar opioides como rotina. Psicoeducação e desmistificação são essenciais.',
+    alerta: 'Síndrome da cauda equina (retenção/incontinência urinária, anestesia em sela, paralisia) → emergência cirúrgica imediata. Déficit neurológico progressivo → RNM urgente.',
+  },
+  {
+    id: 'entorse',
+    category: 'Ortopedia / Osteomuscular',
+    color: '#76e4f7',
+    title: 'Entorse de Tornozelo',
+    preview: 'Lesão ligamentar mais comum do aparelho locomotor; ligamento talofibular anterior é o mais acometido.',
+    epidemio: 'Uma das lesões musculoesqueléticas mais frequentes na APS e em emergências. Prevalência elevada em jovens, praticantes de esportes e em quedas em idosos. Mecanismo mais comum: inversão + flexão plantar (lesão do complexo ligamentar lateral). ~40% evoluem com instabilidade crônica se não tratados adequadamente.',
+    fisio: 'Inversão forçada → estiramento/ruptura do ligamento talofibular anterior (LTFA) → calcaneofibular (LCF) → talofibular posterior (LTFP) — em ordem crescente de gravidade. Classificação: Grau I (estiramento, sem ruptura), Grau II (ruptura parcial, instabilidade leve), Grau III (ruptura completa, instabilidade franca). Edema e equimose por extravasamento sanguíneo local.',
+    clinica: 'Dor lateral de tornozelo, edema, equimose, limitação de movimento. Grau I: dor leve, deambulação preservada. Grau II: dor moderada, edema, dificuldade para apoiar. Grau III: dor intensa, edema importante, incapacidade de deambular. Regras de Ottawa: Rx indicado se dor na zona maleolar + incapacidade de dar 4 passos OU dor à palpação da ponta do maléolo.',
+    exames: ['Rx tornozelo AP + perfil + Mortise: aplicar Regras de Ottawa para indicação', 'RNM: apenas se suspeita de lesão tendínea associada ou instabilidade crônica'],
+    tratamento: 'Protocolo PRICE: Proteção, Repouso relativo, Gelo (20min 3–4×/dia), Compressão (bandagem elástica), Elevação do membro. AINE por 5–7 dias (ibuprofeno ou naproxeno). Mobilização precoce e carga progressiva — superior ao imobilização prolongada. Fisioterapia com propriocepção é essencial para prevenir recidiva e instabilidade crônica. Grau III com instabilidade grave: avaliação ortopédica.',
+    alerta: 'Aplicar Regras de Ottawa para evitar Rx desnecessário. Não imobilizar grau I e II por mais de 7–10 dias (retarda recuperação). Recidiva frequente → reforçar fisioterapia e uso de órtese em esportes.',
+  },
+  {
+    id: 'osteoartrite',
+    category: 'Ortopedia / Osteomuscular',
+    color: '#76e4f7',
+    title: 'Osteoartrite (Artrose)',
+    preview: 'Doença articular degenerativa mais prevalente; afeta principalmente joelho, quadril e mãos.',
+    epidemio: 'Afeta ~15% da população brasileira adulta, com prevalência crescente com a idade. Após 65 anos: >50% têm evidência radiológica. Joelho (gonartrose) e quadril (coxartrose) são as formas mais incapacitantes. Fatores de risco: idade, obesidade, sexo feminino, trauma articular prévio, sobrecarga ocupacional, predisposição genética.',
+    fisio: 'Desequilíbrio entre síntese e degradação da cartilagem articular → perda progressiva da cartilagem hialina → exposição do osso subcondral → esclerose, osteófitos, sinovite reativa. Mediadores pró-inflamatórios (IL-1β, TNF-α, metaloproteases) perpetuam a degeneração. Sobrecarga mecânica é o principal gatilho na obesidade.',
+    clinica: 'Dor articular de caráter mecânico: piora com atividade, melhora com repouso. Rigidez matinal curta (<30min — diferencia de artrite reumatoide). Crepitação, limitação de amplitude, deformidade progressiva. Joelho: dor medial ou global, sinal de Thessaly, valgismo/varismo. Quadril: dor inguinal irradiada para coxa, limitação de rotação interna. Mãos: nódulos de Heberden (IFD) e Bouchard (IFP).',
+    exames: ['Rx simples: redução de espaço articular, osteófitos, esclerose subcondral, cistos — diagnóstico clínico-radiológico', 'VHS/PCR: normais (distingue de artrite inflamatória)', 'Fator reumatoide e anti-CCP: se suspeita de AR', 'RNM: não é rotina — usar se suspeita de lesão meniscal/ligamentar associada'],
+    tratamento: 'Não farmacológico (1ª linha): exercício físico (fortalecimento muscular periarticular), redução de peso (cada kg reduz 4kg de carga no joelho), fisioterapia, uso de bengala. Farmacológico: paracetamol 500–1000mg 8/8h (1ª linha analgésica); AINE tópico (diclofenaco gel) — menor risco sistêmico; AINE oral em ciclos curtos; infiltração intra-articular com corticoide (alívio temporário). Cirúrgico: artroplastia quando incapacidade grave refratária.',
+    alerta: 'AINE oral em idosos: risco de úlcera GI, insuficiência renal e eventos CV — usar com gastroproteção e por menor tempo possível. Artrocentese diagnóstica se derrame articular de início agudo (excluir artrite séptica e gota).',
+  },
+  {
+    id: 'fibromialgia',
+    category: 'Ortopedia / Osteomuscular',
+    color: '#76e4f7',
+    title: 'Fibromialgia',
+    preview: 'Síndrome de dor crônica difusa por sensibilização central; diagnóstico clínico pelos critérios ACR 2010.',
+    epidemio: 'Prevalência: 2–4% da população geral; 80–90% dos casos em mulheres, pico entre 30–50 anos. Segunda condição reumatológica mais comum (após artrose). Alta comorbidade com depressão (~50%), ansiedade, síndrome do intestino irritável, cefaleia tensional e fadiga crônica. Subdiagnóstico frequente — média de 5 anos até o diagnóstico.',
+    fisio: 'Sensibilização central: amplificação do processamento da dor no SNC — limiar doloroso reduzido (alodinia e hiperalgesia). Disfunção das vias inibitórias descendentes da dor (↓serotonina, ↓noradrenalina). Ativação aumentada das vias facilitatórias (glutamato, substância P). Sem inflamação periférica ou dano tecidual identificável — exames laboratoriais e de imagem normais.',
+    clinica: 'Critérios ACR 2010: dor difusa (4 quadrantes + axial) há ≥3 meses + Índice de Dor Generalizada (IDG≥7 + Escala de Gravidade de Sintomas ≥5 OU IDG 4–6 + ESS≥9). Sintomas associados: fadiga intensa, sono não reparador, disfunção cognitiva ("fibro fog"), cefaleia, parestesias, síndrome do cólon irritável. Não há mais necessidade de contar tender points (critério antigo).',
+    exames: ['Diagnóstico clínico — exames para excluir diagnósticos diferenciais', 'Hemograma, VHS, PCR, TSH (hipotireoidismo)', 'CK (miopatia)', 'Fator reumatoide, anti-CCP (AR)', 'Vitamina D, B12 (deficiências)', 'Sem necessidade de RNM ou cintilografia de rotina'],
+    tratamento: 'Multimodal — combinação de abordagens: Exercício aeróbico (evidência A): caminhada, natação, hidroginástica — é o tratamento mais eficaz. TCC: reduz catastrofização e melhora funcionalidade. Farmacológico (adjuvante): duloxetina 60mg/dia (↓dor e fadiga), pregabalina 150–300mg/dia (↓dor e melhora sono), amitriptilina 10–25mg/noite (melhora sono). AINE e opioides: pouco eficazes — evitar. Psicoeducação e validação do diagnóstico são fundamentais.',
+    alerta: 'Fibromialgia NÃO é diagnóstico de exclusão — é diagnóstico positivo pelos critérios ACR. Evitar peregrinação diagnóstica com exames desnecessários. Comorbidades psiquiátricas devem ser tratadas simultaneamente.',
+  },
+  {
+    id: 'tendinopatia',
+    category: 'Ortopedia / Osteomuscular',
+    color: '#76e4f7',
+    title: 'Tendinopatias Comuns',
+    preview: 'Epicondilite, fasciíte plantar, tendinopatia aquiliana e do manguito rotador são as mais vistas na APS.',
+    epidemio: 'Tendinopatias representam ~30% das consultas de ortopedia/reumatologia na APS. Epicondilite lateral ("cotovelo de tenista"): mais comum em 35–55 anos, não exclusiva de tenistas. Fascite plantar: causa mais comum de dor no calcanhar, afeta ~10% da população. Tendinopatia aquiliana: prevalente em corredores e sedentários acima do peso. Manguito rotador: síndrome do impacto presente em ~70% dos ombros dolorosos.',
+    fisio: 'Tendinose (não tendinite): processo predominantemente degenerativo, não inflamatório — falha no processo de reparo do colágeno tipo I → desorganização das fibrilas, neovascularização, dor. Carga repetitiva ou excessiva supera a capacidade de adaptação do tendão. Na fascite plantar: microrrupturas na origem da fáscia plantar no calcâneo, agravadas pela contratura do gastrocnêmio.',
+    clinica: 'Epicondilite lateral: dor epicôndilo lateral, piora à extensão do punho e preensão, sinal de Cozen positivo. Fascite plantar: dor em calcanhar plantar, pior nos primeiros passos pela manhã e após repouso. Tendinopatia aquiliana: dor e espessamento do tendão 2–6cm acima da inserção. Síndrome do impacto: dor em ombro ao elevar o braço acima de 90°, sinal de Neer e Hawkins positivos.',
+    exames: ['Diagnóstico clínico em todos', 'USG de partes moles: confirma espessamento, neovascularização, rupturas parciais', 'RNM: suspeita de ruptura completa (manguito rotador), falha de tratamento', 'Rx simples: calcificações (tendinite calcária), esporão calcâneo (achado inespecífico — não determina tratamento)'],
+    tratamento: 'Fase aguda: repouso relativo, gelo, AINE tópico (diclofenaco gel). Fase subaguda/crônica (principal): exercício excêntrico supervisionado (evidência A para aquiliana e patelar); fisioterapia com ondas de choque (ESWT) para casos persistentes. Infiltração com corticoide: alívio a curto prazo, pode enfraquecer o tendão — máximo 3 infiltrações. PRP: evidência moderada. Cirurgia: casos refratários após 6–12 meses de tratamento conservador.',
+    alerta: 'Corticoide intratendinoso (não peritendinoso): risco de ruptura tendinosa — contraindicado no tendão de Aquiles. Ruptura completa do manguito com déficit funcional → cirurgia. Esporão calcâneo no Rx: achado incidental — não é a causa da dor e não indica cirurgia.',
+  },
+  {
+    id: 'osteoporose',
+    category: 'Ortopedia / Osteomuscular',
+    color: '#76e4f7',
+    title: 'Osteoporose',
+    preview: 'Doença esquelética sistêmica; principal consequência é a fratura por fragilidade.',
+    epidemio: 'Afeta ~10 milhões de brasileiros; 75% são mulheres. Após menopausa: perda de 2–3% da massa óssea/ano por 5–10 anos. Fratura de quadril: mortalidade de ~20% no 1º ano; ~50% nunca recuperam autonomia. Fratura vertebral: causa de dor crônica e cifose. Rastreio: DXA em mulheres ≥65 anos e homens ≥70 anos (ou mais jovens com fatores de risco).',
+    fisio: 'Desequilíbrio entre formação (osteoblastos) e reabsorção óssea (osteoclastos) → redução da densidade mineral óssea (DMO) e deterioração da microarquitetura. Pós-menopausa: queda do estrogênio → ativação de osteoclastos via RANKL. Senil: ↓IGF-1, ↓vitamina D, ↓atividade física. Corticoide exógeno: inibe osteoblastos e estimula osteoclastos — causa mais comum de osteoporose secundária.',
+    clinica: 'Assintomática até a fratura. Fraturas por fragilidade: trauma mínimo ou espontâneas. Locais mais comuns: vértebras (dor dorsal súbita, perda de altura, cifose), punho distal (Colles), fêmur proximal (quadril). T-score na DXA: normal ≥-1,0; osteopenia -1,0 a -2,5; osteoporose ≤-2,5; osteoporose grave: ≤-2,5 + fratura.',
+    exames: ['DXA (densitometria): colo femoral + coluna lombar L1-L4', 'FRAX: calcular risco de fratura a 10 anos (com ou sem DXA)', 'Cálcio sérico, fósforo, vitamina D (25-OH)', 'PTH, TSH, testosterona (causas secundárias)', 'Rx coluna: identificar fraturas vertebrais', 'Marcadores de remodelação óssea (CTX, P1NP): monitorar resposta ao tratamento'],
+    tratamento: 'Não farmacológico: cálcio 1000–1200 mg/dia (dieta + suplemento), vitamina D 800–2000 UI/dia, exercício com impacto e resistência, prevenção de quedas, cessação tabágica. Farmacológico 1ª linha: bisfosfonatos — alendronato 70mg/semana ou risedronato 35mg/semana VO (tomar em jejum, com copo cheio d\'água, ficar ereto 30min). Alternativas: denosumabe, ácido zoledrônico (EV anual), teriparatida (osteoporose grave). Duração: 5 anos (bisfosfonato oral), reavaliação com DXA.',
+    alerta: 'Osteonecrose de mandíbula e fratura atípica de fêmur: complicações raras de bisfosfonatos em uso prolongado — avaliar "drug holiday" após 5 anos. Queda única em idoso sem osteoporose conhecida que resulta em fratura → investigar osteoporose.',
+  },
+  {
+    id: 'artrite_reumatoide',
+    category: 'Ortopedia / Osteomuscular',
+    color: '#76e4f7',
+    title: 'Artrite Reumatoide',
+    preview: 'Artrite inflamatória simétrica crônica; diagnóstico precoce é essencial para evitar dano articular.',
+    epidemio: 'Prevalência: ~1% da população mundial; mulheres 2–3× mais afetadas. Pico: 40–60 anos. Na APS: suspeitar em pacientes com artralgia/artrite simétrica de pequenas articulações com rigidez matinal prolongada. Diagnóstico e início de tratamento nos primeiros 3–6 meses reduz drasticamente dano articular irreversível ("janela de oportunidade").',
+    fisio: 'Doença autoimune: autoanticorpos (FR, anti-CCP) → ativação de linfócitos T e B → sinovite inflamatória → pannus sinovial → erosão de cartilagem e osso subcondral. Citocinas centrais: TNF-α, IL-6, IL-1β. Manifestações extra-articulares: nódulos reumatoides, vasculite, pleurite, pericardite, risco CV aumentado.',
+    clinica: 'Artrite simétrica de pequenas articulações (IFP, MCF, punhos) — poupa IFD (diferencia de artrose). Rigidez matinal >1 hora. Edema, calor e eritema articular. Critérios ACR/EULAR 2010: envolvimento articular + sorologias (FR e anti-CCP) + reagentes de fase aguda (VHS, PCR) + duração ≥6 semanas. Anti-CCP: especificidade >95%.',
+    exames: ['Fator reumatoide (FR): positivo em 70–80%', 'Anti-CCP: alta especificidade (>95%), pode preceder sintomas', 'VHS e PCR: elevados na doença ativa', 'Hemograma: anemia de doença crônica', 'Rx mãos e pés: erosões, redução de espaço articular (tardio)', 'USG articular com Doppler: detecta sinovite precoce'],
+    tratamento: 'Referenciar ao reumatologista precocemente. Na APS: AINE para controle sintomático enquanto aguarda consulta. DMARDs (modificadores da doença): Metotrexato é o anchor drug (7,5–25mg/semana + ácido fólico). Leflunomida, hidroxicloroquina como alternativas. Biológicos (anti-TNF, anti-IL6, abatacepte): falha a 2 DMARDs convencionais. Meta: remissão ou baixa atividade da doença (DAS28 < 2,6).',
+    alerta: 'Qualquer artrite inflamatória simétrica com rigidez matinal >1h → solicitar FR + anti-CCP + VHS/PCR e encaminhar ao reumatologista com urgência relativa. Metotrexato: hepatotóxico e teratogênico — monitorar TGO/TGP e controlar contracepção.',
+  },
+  {
+    id: 'gota',
+    category: 'Ortopedia / Osteomuscular',
+    color: '#76e4f7',
+    title: 'Gota',
+    preview: 'Artrite microcristalina por depósito de urato monossódico; articulação mais afetada: 1ª metatarsofalângica.',
+    epidemio: 'Prevalência crescente: ~4% dos adultos no Brasil, mais comum em homens (3–4:1) após 40 anos; em mulheres após a menopausa. Associada à síndrome metabólica, DRC, HAS, uso de diuréticos, álcool e dieta rica em purinas. Gota crônica não tratada: tofos, artropatia gotosa e nefrolitíase.',
+    fisio: 'Hiperuricemia (ácido úrico >7 mg/dL em homens e >6 mg/dL em mulheres) → supersaturação → cristais de urato monossódico se depositam na sinóvia → fagocitados por neutrófilos → inflamação aguda intensa (cascata do inflamassoma NLRP3, IL-1β). Gatilhos da crise: álcool, refeição rica em purinas, desidratação, trauma, início de uricosúrico.',
+    clinica: 'Crise aguda: artrite monoarticular de início abrupto (frequentemente noturno), dor intensa, calor, rubor e edema. 1ª MTF (podagra) em 50% dos casos. Outros: tornozelo, joelho, punho. Pico em 12–24h, resolução espontânea em 7–10 dias sem tratamento. Gota crônica: tofos (pavilhão auricular, cotovelo, dedos), artropatia erosiva, nefrolitíase por urato.',
+    exames: ['Ácido úrico sérico: pode estar normal durante a crise', 'Artrocentese + análise de líquido sinovial: cristais de urato birrefringentes negativos (padrão-ouro)', 'VHS e PCR: elevados na crise', 'Função renal e EAS: acometimento renal, nefrolitíase', 'Rx articular: erosões em saca-bocado (gota crônica)', 'USG articular: sinal do "duplo contorno" (depósito de urato na cartilagem)'],
+    tratamento: 'Crise aguda: colchicina 1mg + 0,5mg 1h depois (1ª linha se precoce <24h); AINE (indometacina 50mg 8/8h ou naproxeno 500mg 12/12h) × 5–7 dias; corticóide oral (prednisona 30–40mg/dia × 5 dias) se contraindicação aos anteriores. Profilaxia e tratamento crônico: alopurinol (inibidor da xantina oxidase) — iniciar APÓS resolução da crise, dose inicial 100mg/dia, aumentar até atingir alvo de AU <6 mg/dL. Dieta: restringir álcool, carnes vermelhas, frutos do mar, frutose.',
+    alerta: 'Não iniciar alopurinol durante a crise aguda (pode prolongá-la ou precipitar nova crise). Colchicina: reduzir dose em DRC. AINE: evitar em DRC e uso de anticoagulantes. Gota hiperúrica + DRC: preferir febuxostate ao alopurinol.',
+  },
+  {
+    id: 'sindrome_tunel_carpo',
+    category: 'Ortopedia / Osteomuscular',
+    color: '#76e4f7',
+    title: 'Síndrome do Túnel do Carpo',
+    preview: 'Neuropatia compressiva mais comum; parestesia noturna em território do nervo mediano.',
+    epidemio: 'Prevalência: 3–6% da população adulta; mulheres 3× mais afetadas. Pico: 40–60 anos. Fatores de risco: trabalho manual repetitivo (LER/DORT), gravidez (retenção hídrica), hipotireoidismo, DM, artrite reumatoide, obesidade. Alta prevalência em digitadores, costureiras, empacotadores.',
+    fisio: 'Compressão do nervo mediano no túnel do carpo (estrutura osteofibrosa no punho) → isquemia do nervo → desmielinização segmentar → parestesia e dor. Pressão intratúnel elevada (normal <30 mmHg). Causas: espessamento do ligamento transverso, tenossinovite flexora, edema (gravidez, hipotireoidismo), massa (cisto sinovial). Casos graves: degeneração axonal → fraqueza e atrofia da musculatura tênar.',
+    clinica: 'Parestesia (formigamento, queimação) e dor em território do nervo mediano: polegar, 2º, 3º dedos e metade radial do 4º dedo. Piora noturna (acorda o paciente). Melhora ao sacudir a mão ("flick sign"). Sinal de Tinel (percussão do punho reproduz parestesia) e Phalen (flexão do punho 60s reproduz sintomas). Casos avançados: fraqueza de pinça, atrofia tênar.',
+    exames: ['Eletroneuromiografia (ENMG): padrão-ouro — latência distal do mediano prolongada', 'USG de nervo mediano: área de secção transversa > 10–12 mm² (diagnóstico)', 'TSH, glicemia (causas secundárias)', 'Rx punho: excluir artrose, fratura'],
+    tratamento: 'Leve-moderada: órtese de punho em posição neutra à noite (6–12 semanas) + AINE/analgésico para sintomas. Infiltração com corticoide no túnel: alívio prolongado em casos moderados. Modificação das atividades laborais. Grave (atrofia tênar, déficit motor, falha conservadora): descompressão cirúrgica do nervo mediano (ligamentotomia) — alta taxa de sucesso. Tratar causa secundária quando presente.',
+    alerta: 'Atrofia tênar = dano axonal avançado → cirurgia sem demora. Síndrome bilateral: investigar hipotireoidismo e DM. Diagnóstico diferencial: síndrome do desfiladeiro torácico, radiculopatia C6.',
+  },
+  // ── INFECTOLOGIA ────────────────────────────────────────────────
+  {
+    id: 'tb',
+    category: 'Infectologia',
+    color: '#68d391',
+    title: 'Tuberculose',
+    preview: 'Brasil é um dos 30 países com maior carga de TB; notificação compulsória.',
+    epidemio: 'Brasil entre os 30 países com maior carga de TB no mundo (~65.000 casos novos/ano). Maior incidência: Norte e Nordeste, grandes centros urbanos, populações vulneráveis (PVHIV, moradores de rua, presidiários, indígenas). Transmissão: inalação de gotículas de Koch. Notificação compulsória imediata.',
+    fisio: 'Mycobacterium tuberculosis: bacilo álcool-ácido resistente (BAAR). Inalado → fagocitado por macrófagos alveolares → multiplicação intracelular → granuloma (tentativa de contenção). TB latente: sistema imune controla (90% dos infectados). Reativação: imunossupressão, desnutrição, álcool, DM, PVHIV. Necrose caseosa → cavitação → bacilemia.',
+    clinica: 'TB pulmonar ativa: tosse produtiva >3 semanas, hemoptise, febre vespertina, sudorese noturna, emagrecimento, astenia. TB extrapulmonar: pleural (derrame), ganglionar (adenomegalia cervical), meníngea, óssea, renal. Exame: diminuição de MV, crepitações no ápice. Todo paciente com tosse >3 semanas deve ser investigado para TB na UBS.',
+    exames: ['Baciloscopia de escarro (2 amostras) — método mais rápido', 'Cultura para BAAR (padrão-ouro) + teste de sensibilidade', 'TRM-TB (GeneXpert): diagnóstico + resistência à rifampicina em 2h', 'Rx tórax: infiltrado em ápice, cavitações', 'PVHIV: sempre investigar independente de sintomas', 'PPD/IGRA: TB latente'],
+    tratamento: 'Esquema básico (2RHZE/4RH): Rifampicina + Isoniazida + Pirazinamida + Etambutol por 2 meses; Rifampicina + Isoniazida por 4 meses. Total: 6 meses. TDO (Tratamento Diretamente Observado): estratégia prioritária. PVHIV: 9 meses. TB-MDR: esquema individualizado, referência especializada. Contatos: investigar e oferecer ILTB se elegível (Isoniazida 6 meses).',
+    alerta: 'TB + HIV: co-infecção de alta mortalidade — solicitar HIV em todo caso novo de TB. Resistência: TRM-TB positivo para rifampicina → referir ao Centro de Referência imediatamente.',
+  },
+];
+
+const flashcards = [
+  { cat: 'HAS', q: 'Quais são as metas de PA segundo as Diretrizes Brasileiras de Hipertensão 2020?', a: '<strong>Alto risco CV:</strong> < 130/80 mmHg.<br><strong>Baixo-moderado risco:</strong> < 140/90 mmHg.<br><strong>Idosos frágeis:</strong> individualizar (< 150/90 mmHg).<br>A meta mais agressiva é reservada para pacientes com DM, DRC, cardiopatia ou DCV estabelecida.' },
+  { cat: 'HAS', q: 'Quando suspeitar de hipertensão secundária e investigar?', a: 'Suspeitar quando: <strong>início antes dos 30 anos</strong>, HAS resistente (≥3 drogas em dose plena), hipocalemia sem uso de diuréticos, HAS com piora súbita, sopros abdominais (estenose de artéria renal). Causas comuns: <strong>HAS renovascular, hiperaldosteronismo primário, SAOS, coarctação da aorta</strong>.' },
+  { cat: 'HAS', q: 'Qual a combinação de anti-hipertensivos de 1ª linha mais recomendada?', a: '<strong>IECA (ou BRA) + BCC dihidropiridínico ± diurético tiazídico.</strong><br>Evitar: IECA + BRA (combinação contraindicada). BCC não-dihidropiridínico (diltiazem/verapamil) + betabloqueador: risco de BAV. Betabloqueador como 1ª linha apenas se cardiopatia ou IC associada.' },
+  { cat: 'DM2', q: 'Quais são os critérios diagnósticos para Diabetes Mellitus Tipo 2?', a: 'Qualquer um dos seguintes (confirmado em 2 ocasiões, exceto sintomático):<br>• <strong>Glicemia jejum ≥ 126 mg/dL</strong><br>• <strong>HbA1c ≥ 6,5%</strong><br>• <strong>TOTG 2h ≥ 200 mg/dL</strong><br>• <strong>Glicemia aleatória ≥ 200 mg/dL + sintomas clássicos</strong> (confirma em dose única).' },
+  { cat: 'DM2', q: 'Quais são as vantagens dos iSGLT2 e GLP-1 RA no DM2?', a: '<strong>iSGLT2</strong> (empagliflozina, dapagliflozina): proteção cardiovascular e renal independente da redução glicêmica. Indicados em DRC, ICC ou doença CV estabelecida.<br><strong>GLP-1 RA</strong> (semaglutida, liraglutida): redução de peso significativa, proteção CV. Indicados em obesidade + DM2.' },
+  { cat: 'DM2', q: 'Como realizar o rastreio do pé diabético na consulta de rotina?', a: 'Inspeção: <strong>calos, fissuras, úlceras, deformidades</strong>.<br>Sensibilidade: <strong>monofilamento de 10g</strong> (5 pontos plantares) + diapasão 128Hz.<br>Vascular: <strong>pulsos pediosos e tibiais posteriores</strong>. ABI se suspeita de PAD.<br>Classificar pelo risco (Wagner) e estratificar frequência de retorno.' },
+  { cat: 'Asma', q: 'Como classificar o controle da asma segundo o GINA 2023?', a: '<strong>Bem controlada:</strong> sintomas ≤2×/semana, sem limitação de atividades, sem despertar noturno, uso de SABA ≤2×/semana, VEF1 > 80%.<br><strong>Parcialmente controlada:</strong> 1-2 critérios anormais.<br><strong>Não controlada:</strong> ≥3 critérios anormais ou exacerbação recente.' },
+  { cat: 'DPOC', q: 'Qual é o critério espirométrico diagnóstico de DPOC?', a: '<strong>VEF1/CVF < 0,70 pós-broncodilatador.</strong><br>Não é reversível ao BD (diferencia de asma). A classificação de gravidade usa o VEF1:<br>GOLD 1 (≥80%), GOLD 2 (50-79%), GOLD 3 (30-49%), GOLD 4 (<30%).<br>Grupos A-D combinam sintomas (mMRC/CAT) + histórico de exacerbações.' },
+  { cat: 'Saúde Mental', q: 'Quais são os critérios DSM-5 para diagnóstico de Episódio Depressivo Maior?', a: '≥5 sintomas por ≥2 semanas, sendo <strong>obrigatório</strong> humor deprimido e/ou anedonia. Os outros: alteração de sono, apetite/peso, fadiga, agitação/retardo psicomotor, dificuldade de concentração, sentimentos de culpa/inutilidade, pensamentos de morte/suicídio. Devem causar sofrimento/prejuízo funcional.' },
+  { cat: 'Saúde Mental', q: 'Quais antidepressivos são 1ª linha na APS e por quanto tempo tratar?', a: '<strong>ISRS:</strong> sertralina (50-200mg), escitalopram (10-20mg), fluoxetina (20-60mg).<br>Resposta em 4-6 semanas; eficácia plena em 8-12 semanas.<br><strong>Manutenção:</strong> mínimo 6-12 meses após remissão (1ª depressão); ≥2 anos ou indefinido em recorrentes.' },
+  { cat: 'ITU', q: 'Qual o tratamento de 1ª linha para cistite não complicada em mulher adulta?', a: '<strong>Nitrofurantoína</strong> 100mg 6/6h × 5 dias (evitar se TFGe<30).<br><strong>Fosfomicina</strong> 3g dose única (boa adesão).<br><strong>SMX-TMP</strong> 160/800mg 12/12h × 3 dias (se resistência local <20%).<br>Fluoroquinolonas: reservar para infecções complicadas (resistência crescente).' },
+  { cat: 'Pré-natal', q: 'Quais exames são solicitados na 1ª consulta pré-natal pelo Protocolo do MS?', a: 'Hb/Ht, tipagem sanguínea ABO/Rh, Coombs indireto, VDRL, anti-HIV, HBsAg, toxoplasmose IgG/IgM, glicemia, TSH, EAS + urocultura, citopatológico do colo (se não recente). USG de 1º trimestre (11-14 sem) para translucência nucal e IG. Iniciar ácido fólico e orientações gerais.' },
+  { cat: 'Pré-natal', q: 'Quais são os principais sinais de alarme na gestação que indicam avaliação urgente?', a: '• <strong>Sangramento vaginal</strong> em qualquer trimestre<br>• <strong>Cefaleia intensa + alterações visuais + epigastralgia</strong> (pré-eclâmpsia grave)<br>• <strong>Ausência de movimentos fetais</strong> (>32 sem: <10 mov/2h)<br>• <strong>Febre</strong><br>• <strong>Ruptura de membranas</strong><br>• <strong>Contrações regulares antes de 37 semanas</strong>' },
+  { cat: 'Puericultura', q: 'Quais são os marcos de desenvolvimento motor que todo pediatra de APS deve conhecer?', a: '<strong>2 meses:</strong> sustenta o olhar, sorriso social.<br><strong>3-4 meses:</strong> sustento de cabeça.<br><strong>6 meses:</strong> senta com apoio, transfere objetos.<br><strong>8-9 meses:</strong> senta sem apoio, pinça inferior.<br><strong>12 meses:</strong> anda com apoio, pinça superior, "mama/papa".<br><strong>18 meses:</strong> marcha estável, 10 palavras.<br><strong>24 meses:</strong> frases de 2 palavras.' },
+  { cat: 'Puericultura', q: 'Qual a dose de ferro profilático para lactentes e quando iniciar?', a: '<strong>A termo:</strong> 1 mg/kg/dia a partir dos 6 meses (se aleitamento materno exclusivo) até os 2 anos.<br><strong>Prematuro/baixo peso:</strong> 2 mg/kg/dia a partir de 30-60 dias de vida.<br><strong>Prematuro muito baixo peso (<1500g):</strong> 4 mg/kg/dia.<br>Vitamina D: 400-600 UI/dia até 2 anos independentemente do aleitamento.' },
+  { cat: 'Dislipidemia', q: 'Quais são as metas de LDL-colesterol de acordo com o risco cardiovascular?', a: 'Segundo SBC 2017 e ESC 2019:<br>• <strong>Risco baixo:</strong> LDL < 116 mg/dL<br>• <strong>Risco moderado:</strong> LDL < 100 mg/dL<br>• <strong>Risco alto:</strong> LDL < 70 mg/dL<br>• <strong>Risco muito alto</strong> (DCV estabelecida, DM com lesão órgão-alvo): LDL < 55 mg/dL<br>Calcular risco pelo Escore de Risco Global (ERG).' },
+  { cat: 'Hipotireoidismo', q: 'Como fazer o ajuste da levotiroxina e quais são as metas de TSH?', a: 'Iniciar: 1,6 mcg/kg/dia em adultos jovens; 25-50 mcg em idosos/cardiopatas.<br>Ajustar: 25 mcg a cada <strong>4-6 semanas</strong> (tempo de equilíbrio do T4).<br>Meta TSH: <strong>0,5-2,5 mUI/L</strong> para adultos; 0,5-4,0 para idosos; <2,5 no 1º trimestre gestacional.<br>Ingerir em jejum, 30 min antes do café. Espaçar 4h de cálcio, ferro e IBP.' },
+  { cat: 'Tuberculose', q: 'Qual o esquema básico de tratamento da TB pulmonar no adulto imunocompetente?', a: '<strong>Fase intensiva (2 meses):</strong> Rifampicina + Isoniazida + Pirazinamida + Etambutol (2RHZE)<br><strong>Fase manutenção (4 meses):</strong> Rifampicina + Isoniazida (4RH)<br><strong>Total: 6 meses.</strong><br>PVHIV/imunossuprimidos: 9 meses.<br>TDO: tratamento diretamente observado é estratégia prioritária pelo PNCT.' },
+  { cat: 'Tuberculose', q: 'Quais grupos prioritários para rastreio de TB latente (ILTB)?', a: '• <strong>PVHIV</strong><br>• Contatos de caso índice bacilífero<br>• Candidatos a imunossupressores (anti-TNF, corticóide crônico, transplante)<br>• Pacientes em hemodiálise<br>• Diabetes mellitus descompensada<br>• Silicose<br>Rastreio: PPD ≥5mm (imunossuprimidos) ou ≥10mm (outros) / IGRA positivo → tratar ILTB com Isoniazida 6-9 meses.' },
+  { cat: 'Ortopedia', q: 'Quais são os "red flags" na lombalgia que obrigam investigação imediata?', a: '• <strong>Febre + dor lombar</strong>: espondilodiscite<br>• <strong>Perda de peso inexplicada + história de câncer</strong>: metástase<br>• <strong>Trauma significativo</strong>: fratura<br>• <strong>Déficit neurológico progressivo</strong>: compressão radicular grave<br>• <strong>Síndrome da cauda equina</strong>: retenção/incontinência urinária, anestesia em sela → emergência cirúrgica<br>• <strong>Dor noturna que não melhora</strong> em decúbito: neoplasia/infecção' },
+  { cat: 'Ortopedia', q: 'Quando aplicar as Regras de Ottawa para entorse de tornozelo?', a: 'Rx de tornozelo é indicado se <strong>dor na zona maleolar</strong> E:<br>• Incapacidade de dar <strong>4 passos</strong> imediatamente após o trauma E na avaliação<br>• OU dor à palpação da <strong>ponta do maléolo lateral ou medial</strong><br>Rx de pé médio: dor na zona do pé médio + incapacidade de apoio OU dor na base do 5º metatarso ou osso navicular.<br>Especificidade ~40%, sensibilidade ~99% para excluir fratura.' },
+  { cat: 'Ortopedia', q: 'Quais são os critérios diagnósticos de fibromialgia pelos critérios ACR 2010?', a: '<strong>Índice de Dor Generalizada (IDG) ≥ 7</strong> + <strong>Escala de Gravidade de Sintomas (ESS) ≥ 5</strong><br>OU IDG 4–6 + ESS ≥ 9.<br>Duração ≥ 3 meses. Dor em 4 quadrantes + axial.<br>Sintomas: fadiga, sono não reparador, disfunção cognitiva.<br>Não há mais necessidade de contar tender points (critério antigo de 1990).' },
+  { cat: 'Ortopedia', q: 'Qual é o tratamento de 1ª linha para crise aguda de gota?', a: '<strong>Colchicina:</strong> 1mg + 0,5mg 1h depois — mais eficaz se iniciada em <24h do início da crise.<br><strong>AINE:</strong> indometacina 50mg 8/8h ou naproxeno 500mg 12/12h × 5–7 dias.<br><strong>Corticoide oral:</strong> prednisona 30–40mg/dia × 5 dias — se contraindicação a colchicina e AINE (ex: DRC).<br>❗ NÃO iniciar alopurinol durante a crise.' },
+  { cat: 'Ortopedia', q: 'Quais são os sinais clínicos de síndrome do túnel do carpo e como confirmar?', a: '<strong>Sinal de Tinel:</strong> percussão do punho → parestesia em território do mediano.<br><strong>Sinal de Phalen:</strong> flexão do punho por 60s → reproduz sintomas.<br><strong>Flick sign:</strong> paciente acorda e sacode a mão para aliviar.<br>Confirmação: <strong>eletroneuromiografia</strong> (latência distal aumentada) ou <strong>USG</strong> (área do nervo >10–12 mm²).<br>Atrofia tênar = dano avançado → indicação cirúrgica.' },
+  { cat: 'Ortopedia', q: 'Como diferenciar osteoartrite de artrite reumatoide na apresentação clínica?', a: '<table style="width:100%;font-size:0.8rem;border-collapse:collapse"><tr><td style="padding:4px 8px;border-bottom:1px solid #2a3050"><strong>Critério</strong></td><td style="padding:4px 8px;border-bottom:1px solid #2a3050"><strong>Artrose</strong></td><td style="padding:4px 8px;border-bottom:1px solid #2a3050"><strong>AR</strong></td></tr><tr><td style="padding:4px 8px">Rigidez matinal</td><td style="padding:4px 8px">&lt; 30 min</td><td style="padding:4px 8px">&gt; 1 hora</td></tr><tr><td style="padding:4px 8px">Articulações</td><td style="padding:4px 8px">IFD, joelho, quadril</td><td style="padding:4px 8px">IFP, MCF, punhos (poupa IFD)</td></tr><tr><td style="padding:4px 8px">Padrão</td><td style="padding:4px 8px">Assimétrico</td><td style="padding:4px 8px">Simétrico</td></tr><tr><td style="padding:4px 8px">VHS/PCR</td><td style="padding:4px 8px">Normais</td><td style="padding:4px 8px">Elevados</td></tr><tr><td style="padding:4px 8px">Anti-CCP</td><td style="padding:4px 8px">Negativo</td><td style="padding:4px 8px">Positivo (95% específico)</td></tr></table>' },
+  { cat: 'Ortopedia', q: 'Qual é o tratamento farmacológico de 1ª linha para osteoporose e como administrar corretamente?', a: '<strong>Alendronato</strong> 70 mg/semana VO (1ª linha).<br>Administração correta: tomar em jejum, com copo cheio de água (200mL), ficar <strong>ereto por 30 minutos</strong> e não ingerir alimentos — evita esofagite.<br>Associar: cálcio 1000–1200 mg/dia + vitamina D 800–2000 UI/dia.<br>Duração: 5 anos → reavaliação com DXA (drug holiday).<br>❗ Osteonecrose de mandíbula e fratura atípica de fêmur: complicações raras do uso prolongado.' },
+
+  { cat: 'HAS', q: 'O que é crise hipertensiva e como diferenciá-la em urgência e emergência?', a: '<strong>Crise hipertensiva:</strong> PA ≥ 180/120 mmHg.<br><strong>Urgência hipertensiva:</strong> sem lesão aguda de órgão-alvo. Reduzir PA em 24-48h com medicação oral (captopril 25mg SL ou amlodipina VO).<br><strong>Emergência hipertensiva:</strong> com LOA aguda (AVC, SCA, dissecção, EAP, eclâmpsia) → redução controlada em 1h com EV → hospitalização.' },
+  { cat: 'DM2', q: 'Quando está indicada a insulinoterapia no DM2?', a: '• <strong>HbA1c > 10%</strong> ao diagnóstico ou com sintomas de hiperglicemia grave<br>• <strong>Falha de terapia oral dupla/tripla</strong> com HbA1c acima da meta<br>• Período perioperatório, gestação (se falha com dieta)<br>• Descompensação aguda (cetoacidose, EHHNC)<br>Iniciar com insulina basal (NPH ou análogo) noturna, titulando conforme glicemia de jejum.' },
+];
+
+// State
+let currentCardIndex = 0;
+let currentCards = [...flashcards];
+let isFlipped = false;
+let stats = { good: 0, wrong: 0 };
+
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`page-${page}`).classList.add('active');
+  event.target.classList.add('active');
+
+  if (page === 'flashcards') initFlashcards();
+}
+
+// Render disease grid
+function renderGrid() {
+  const grid = document.getElementById('diseaseGrid');
+  grid.innerHTML = '';
+  diseases.forEach(d => {
+    const card = document.createElement('div');
+    card.className = 'disease-card';
+    card.style.setProperty('--card-color', d.color);
+    card.style.borderLeftColor = d.color;
+    card.style.borderLeftWidth = '3px';
+    card.innerHTML = `
+      <div class="card-tag">${d.category}</div>
+      <div class="card-title">${d.title}</div>
+      <div class="card-preview">${d.preview}</div>
+      <div class="card-arrow">→</div>
+    `;
+    card.onclick = () => openModal(d);
+    grid.appendChild(card);
+  });
+}
+
+function openModal(d) {
+  document.getElementById('modalTag').textContent = d.category;
+  document.getElementById('modalTag').style.color = d.color;
+  document.getElementById('modalTitle').textContent = d.title;
+
+  const body = document.getElementById('modalBody');
+  body.innerHTML = `
+    <div class="section-block">
+      <h3>📊 Epidemiologia</h3>
+      <p>${d.epidemio}</p>
+    </div>
+    <div class="section-block">
+      <h3>⚙️ Fisiopatologia → Clínica</h3>
+      <p>${d.fisio}</p>
+      <p style="margin-top:0.6rem">${d.clinica}</p>
+    </div>
+    <div class="section-block">
+      <h3>🔬 Exames</h3>
+      <ul class="pill-list">${d.exames.map(e => `<li class="pill">${e}</li>`).join('')}</ul>
+    </div>
+    <div class="section-block">
+      <h3>💊 Tratamento</h3>
+      <p>${d.tratamento}</p>
+    </div>
+    <div class="alert-box">⚠️ <strong>Alerta / Encaminhamento:</strong> ${d.alerta}</div>
+  `;
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalBtn();
+}
+
+function closeModalBtn() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// FLASHCARDS
+function initFlashcards() {
+  // Populate filter
+  const filter = document.getElementById('fcFilter');
+  const cats = [...new Set(flashcards.map(f => f.cat))];
+  filter.innerHTML = '<option value="all">Todas as categorias</option>';
+  cats.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c;
+    filter.appendChild(opt);
+  });
+  updateCard();
+  updateStats();
+}
+
+function filterCards() {
+  const val = document.getElementById('fcFilter').value;
+  currentCards = val === 'all' ? [...flashcards] : flashcards.filter(f => f.cat === val);
+  currentCardIndex = 0;
+  isFlipped = false;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('rateButtons').style.display = 'none';
+  updateCard();
+}
+
+function updateCard() {
+  if (currentCards.length === 0) return;
+  const card = currentCards[currentCardIndex];
+  document.getElementById('fcCategory').textContent = card.cat;
+  document.getElementById('fcQuestion').textContent = card.q;
+  document.getElementById('fcAnswer').innerHTML = card.a;
+  document.getElementById('fcProgress').textContent = `${currentCardIndex + 1} / ${currentCards.length}`;
+  document.getElementById('stat-total').textContent = currentCards.length;
+}
+
+function flipCard() {
+  isFlipped = !isFlipped;
+  document.getElementById('flashcard').classList.toggle('flipped', isFlipped);
+  document.getElementById('rateButtons').style.display = isFlipped ? 'flex' : 'none';
+}
+
+function nextCard() {
+  if (currentCardIndex < currentCards.length - 1) currentCardIndex++;
+  else currentCardIndex = 0;
+  isFlipped = false;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('rateButtons').style.display = 'none';
+  updateCard();
+}
+
+function prevCard() {
+  if (currentCardIndex > 0) currentCardIndex--;
+  else currentCardIndex = currentCards.length - 1;
+  isFlipped = false;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('rateButtons').style.display = 'none';
+  updateCard();
+}
+
+function rateCard(rating) {
+  if (rating === 'good') stats.good++;
+  else if (rating === 'wrong') stats.wrong++;
+  updateStats();
+  nextCard();
+}
+
+function updateStats() {
+  document.getElementById('stat-good').textContent = stats.good;
+  document.getElementById('stat-wrong').textContent = stats.wrong;
+}
+
+function shuffleCards() {
+  currentCards = currentCards.sort(() => Math.random() - 0.5);
+  currentCardIndex = 0;
+  isFlipped = false;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('rateButtons').style.display = 'none';
+  updateCard();
+}
+
+function resetStats() {
+  stats = { good: 0, wrong: 0 };
+  currentCardIndex = 0;
+  isFlipped = false;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('rateButtons').style.display = 'none';
+  updateStats();
+  updateCard();
+}
+
+// FARMACOTERAPIA DATA
+const farmaData = [
+  // ── CARDIOVASCULAR ──────────────────────────────────────────────
+  { cat:'CV', drug:'Losartana', classe:'BRA (Bloqueador do Receptor de Angiotensina)', indicacao:'HAS, nefropatia diabética, IC com FEVE reduzida', dose:'25–100 mg/dia, 1×/dia', ci:'Gravidez (2º/3º tri), hipercalemia grave, estenose bilateral de a. renal', obs:'Preferir ao IECA quando há tosse seca. Monitorar K+ e creatinina. Não combinar com IECA.', alerta:'ci' },
+  { cat:'CV', drug:'Enalapril', classe:'IECA', indicacao:'HAS, IC com FEVE reduzida, nefropatia', dose:'5–40 mg/dia, 1–2×/dia', ci:'Gravidez, angioedema prévio por IECA, hipercalemia, estenose bilateral renal', obs:'Tosse seca em ~15% (trocar por BRA). Monitorar K+ e creatinina ao iniciar. 1ª escolha em IC + FEVE reduzida.', alerta:'ci' },
+  { cat:'CV', drug:'Anlodipino', classe:'BCC dihidropiridínico', indicacao:'HAS, angina estável', dose:'2,5–10 mg/dia, 1×/dia', ci:'Choque cardiogênico, hipotensão grave', obs:'Pode causar edema maleolar (não confundir com IC). Sem interação com K+. Seguro em DRC. Útil em pacientes com bradiarritmias (não deprime FC).', alerta:'tip' },
+  { cat:'CV', drug:'Hidroclorotiazida', classe:'Diurético tiazídico', indicacao:'HAS (associação), edema leve', dose:'12,5–25 mg/dia, 1×/dia (manhã)', ci:'Gota ativa, hipocalemia grave, DRC estágio 4-5 (TFGe<30)', obs:'Monitorar K+, Na+, glicemia, ácido úrico. Potencializa IECA/BRA. Evitar em pacientes gotosos.', alerta:'ci' },
+  { cat:'CV', drug:'Espironolactona', classe:'Diurético poupador de K+ / Antagonista mineralocorticoide', indicacao:'HAS resistente, IC com FEVE reduzida, ascite por cirrose', dose:'25–100 mg/dia, 1×/dia', ci:'Hipercalemia (K+>5,0), DRC avançada (TFGe<30), gravidez', obs:'Monitorar K+ e creatinina. Ginecomastia em homens (pode trocar por eplerenona). Reduz mortalidade na IC.', alerta:'ci' },
+  { cat:'CV', drug:'Metoprolol', classe:'Betabloqueador β1 seletivo', indicacao:'HAS + taquicardia/arritmia, angina, IC estável com FEVE reduzida, pós-IAM', dose:'25–200 mg/dia, 1–2×/dia (succinato: 1×/dia)', ci:'Bloqueio AV 2º-3º grau sem MP, bradicardia grave, asma grave (relativa), choque cardiogênico', obs:'Não suspender abruptamente (risco de angina rebote). Em DPOC leve: pode usar com cautela. Mascarar hipoglicemia no DM1.', alerta:'ci' },
+  { cat:'CV', drug:'Sinvastatina', classe:'Estatina (inibidor HMG-CoA redutase)', indicacao:'Dislipidemia, prevenção CV primária e secundária', dose:'10–40 mg/dia, 1×/dia (noite)', ci:'Hepatopatia ativa, gravidez, lactação, miopatia ativa', obs:'Monitorar CK e ALT. Interação com amiodarona (risco de miopatia). Sinvastatina 80mg: evitar (alto risco rabdomiólise). Preferir rosuvastatina/atorvastatina em alto risco CV.', alerta:'ci' },
+  { cat:'CV', drug:'Atorvastatina', classe:'Estatina de alta intensidade', indicacao:'Dislipidemia, alto e muito alto risco CV, DM2 + fator de risco', dose:'10–80 mg/dia, 1×/dia (qualquer hora)', ci:'Hepatopatia ativa, gravidez', obs:'Reduz LDL em 40–55%. Iniciar com 40mg em alto risco. Monitorar mialgia e CK basal. Pode aumentar glicemia levemente.', alerta:'tip' },
+  { cat:'CV', drug:'AAS (Ácido Acetilsalicílico)', classe:'Antiagregante plaquetário / AINE', indicacao:'Prevenção 2ª de eventos CV (pós-IAM, AVC isquêmico, DAP). Síndrome coronariana aguda.', dose:'100 mg/dia (prevenção 2ª); 200–300 mg (dose de ataque SCA)', ci:'Úlcera péptica ativa, alergia a AINE, sangramento ativo. Prevenção 1ª: benefício controverso em baixo risco.', obs:'Não indicado rotineiramente na prevenção primária em >70 anos (risco de sangramento supera benefício). Não suspender antes de procedimentos sem avaliar risco trombótico.', alerta:'ci' },
+
+  // ── METABÓLICO ─────────────────────────────────────────────────
+  { cat:'Meta', drug:'Metformina', classe:'Biguanida', indicacao:'DM2 (1ª linha), pré-diabetes com alto risco, SOP', dose:'500–2550 mg/dia, 2–3×/dia com refeições (iniciar 500mg e titular)', ci:'TFGe <30 mL/min/1,73m² (suspender); cautela TFGe 30-45; sepse, contraste iodado, cirurgia maior, álcool em excesso', obs:'Causa GI frequente no início (náuseas, diarreia) — iniciar baixo e titular lentamente. Reduz HbA1c ~1,5%. Baixo risco de hipoglicemia em monoterapia. Vitamina B12: monitorar em uso prolongado.', alerta:'tip' },
+  { cat:'Meta', drug:'Glibenclamida', classe:'Sulfonilureia', indicacao:'DM2 (2ª linha ou quando metformina insuficiente)', dose:'2,5–20 mg/dia, 1–2×/dia (antes das refeições)', ci:'DM1, gravidez, DRC avançada (TFGe<30), insuficiência hepática grave', obs:'Risco de hipoglicemia (especialmente em idosos e uso irregular de alimentação). Ganho de peso. Baixo custo — disponível no RENAME. Preferir glipizida/glimepirida em idosos (menor meia-vida).', alerta:'ci' },
+  { cat:'Meta', drug:'Empagliflozina', classe:'iSGLT2 (Inibidor do cotransportador sódio-glicose 2)', indicacao:'DM2 + DCV estabelecida, IC ou DRC (independente de HbA1c)', dose:'10–25 mg/dia, 1×/dia (manhã)', ci:'TFGe <20, DM1, infecções genitais recorrentes, cetoacidose diabética', obs:'Reduz hospitalização por IC e progressão de DRC. Causa glicosúria → ITU e infecções genitais fúngicas. Risco de cetoacidose euglicêmica (raro). Suspender 3-4 dias antes de cirurgia.', alerta:'tip' },
+  { cat:'Meta', drug:'Semaglutida', classe:'Agonista do receptor GLP-1', indicacao:'DM2 + obesidade; alto risco CV ou DCV estabelecida', dose:'0,5–2 mg/semana SC (Ozempic); 3–14 mg/dia VO (Rybelsus)', ci:'Histórico de carcinoma medular de tireoide, NEM tipo 2, pancreatite crônica, DM1', obs:'Redução de peso significativa (~10–15% do peso corporal). Efeitos GI: náuseas, vômitos (início de dose). Não disponível no SUS padrão; alto custo. Reduz eventos CV major em pacientes de alto risco.', alerta:'tip' },
+  { cat:'Meta', drug:'Insulina NPH', classe:'Insulina de ação intermediária', indicacao:'DM2 com falha de hipoglicemiantes orais; DM1 (em esquemas)', dose:'0,1–0,2 UI/kg/dia SC ao deitar (iniciar); ajustar pela glicemia de jejum', ci:'Hipoglicemia ativa', obs:'Pico em 6–10h. Monitorar hipoglicemia noturna (pico às 2–3h da manhã). Disponível no SUS. Refrigerar (2–8°C) antes de abrir; após aberto: temperatura ambiente por até 28 dias.', alerta:'ci' },
+  { cat:'Meta', drug:'Bezafibrato', classe:'Fibrato', indicacao:'Hipertrigliceridemia, dislipidemia mista (baixo HDL + alto TG)', dose:'200 mg 3×/dia ou 400 mg/dia (liberação prolongada)', ci:'DRC grave, hepatopatia, gravidez, lactação', obs:'Não é 1ª linha para redução de LDL (estatinas são superiores). Risco de miopatia aumentado quando associado a estatinas. Monitorar CK e TFG.', alerta:'ci' },
+
+  // ── RESPIRATÓRIO ───────────────────────────────────────────────
+  { cat:'Resp', drug:'Salbutamol (SABA)', classe:'Beta-2-agonista de curta ação', indicacao:'Asma: resgate de crise. DPOC: broncodilatação aguda', dose:'Inalatório: 100–200 mcg (1–2 jatos) conforme necessidade; nebulização: 2,5–5 mg', ci:'Taquiarritmias graves (relativa)', obs:'Tremor fino e taquicardia são efeitos esperados. Uso excessivo (>2×/semana): sinal de asma não controlada. Ensinar técnica inalatória correta + uso do espaçador.', alerta:'tip' },
+  { cat:'Resp', drug:'Beclometasona', classe:'Corticosteroide inalatório (CI)', indicacao:'Asma persistente (controle de longo prazo)', dose:'100–400 mcg 2×/dia (baixa-média dose). Doses variam por dispositivo.', ci:'Tuberculose pulmonar ativa (relativa)', obs:'Enxaguar a boca após cada uso (previne candidíase oral). Não é broncodilatador — não usar para resgate. Disponível no SUS. Reduzir para menor dose eficaz após controle.', alerta:'tip' },
+  { cat:'Resp', drug:'Formoterol + Budesonida', classe:'CI + LABA (ação prolongada)', indicacao:'Asma moderada-grave (GINA step 3–5), DPOC com exacerbações frequentes', dose:'Asma: 1–2 inalações 2×/dia (manutenção) ± SOS (terapia MART)', ci:'Asma leve sem CI (não usar LABA isolado em asma)', obs:'Formoterol tem início de ação rápido (~3min) → pode ser usado como resgate + manutenção (estratégia SMART/MART). Disponível no CEAF/SUS para asma grave.', alerta:'tip' },
+  { cat:'Resp', drug:'Tiotrópio', classe:'Anticolinérgico de longa ação (LAMA)', indicacao:'DPOC (manutenção). Reduz exacerbações e melhora QV.', dose:'18 mcg/dia inalatório (Handihaler) ou 2,5–5 mcg/dia (Respimat)', ci:'Glaucoma de ângulo fechado não tratado, retenção urinária', obs:'Não usar em asma isoladamente. Em DPOC: LAMA superior ao LABA em redução de exacerbações. Boca seca é efeito comum. Verificar técnica de uso do dispositivo.', alerta:'ci' },
+  { cat:'Resp', drug:'Prednisona', classe:'Corticosteroide sistêmico', indicacao:'Exacerbação de asma e DPOC, reações alérgicas graves, doenças inflamatórias', dose:'Asma/DPOC exacerbação: 40–60 mg/dia VO × 5–7 dias; alérgica: 0,5–1 mg/kg/dia', ci:'Infecções fúngicas sistêmicas sem tratamento, TB ativa sem cobertura', obs:'Uso prolongado: osteoporose, diabetes, imunossupressão, Cushing iatrogênico. Não suspender abruptamente após uso prolongado (>3 semanas) — desmame gradual. Suplementar cálcio + vit D em uso crônico.', alerta:'ci' },
+
+  // ── PSIQUIATRIA / SAÚDE MENTAL ─────────────────────────────────
+  { cat:'Psiq', drug:'Sertralina', classe:'ISRS (Inibidor seletivo da recaptação de serotonina)', indicacao:'Depressão, TAG, TOC, TEPT, fobia social, pânico', dose:'50–200 mg/dia, 1×/dia (manhã ou noite)', ci:'Uso concomitante de IMAO (intervalo de 14 dias), síndrome serotoninérgica prévia', obs:'Iniciar com 25–50 mg e aumentar após 2 semanas. Efeitos GI nas primeiras semanas. Disfunção sexual é efeito frequente. Seguro em idosos e gestantes (entre os ISRS mais estudados na gravidez).', alerta:'tip' },
+  { cat:'Psiq', drug:'Escitalopram', classe:'ISRS', indicacao:'Depressão, TAG', dose:'10–20 mg/dia, 1×/dia', ci:'IMAO, síndrome do QT longo, uso de pimozida', obs:'Bem tolerado. Poucos efeitos colaterais. Pode prolongar QT em doses altas — cuidado em cardiopatas. Preferido em idosos por poucas interações medicamentosas.', alerta:'tip' },
+  { cat:'Psiq', drug:'Fluoxetina', classe:'ISRS', indicacao:'Depressão, bulimia nervosa, TOC, transtorno do pânico', dose:'20–60 mg/dia, 1×/dia (manhã)', ci:'IMAO (14 dias de intervalo)', obs:'Meia-vida longa (~1–4 dias + metabólito ativo ~4–16 dias) → menor síndrome de descontinuação. Mais ativadora — útil em depressão com hipersonia/fadiga. Pode causar insônia. Inibe CYP2D6 (interações).', alerta:'tip' },
+  { cat:'Psiq', drug:'Amitriptilina', classe:'Antidepressivo tricíclico (ADT)', indicacao:'Depressão refratária, dor crônica neuropática, enxaqueca (profilaxia), fibromialgia, insônia', dose:'25–150 mg/dia, 1×/dia (noite)', ci:'IAM recente, bloqueio AV, glaucoma de ângulo fechado, retenção urinária, idosos frágeis', obs:'Efeitos anticolinérgicos frequentes (boca seca, constipação, retenção urinária, confusão). Sedação significativa — usar à noite. Risco letal em overdose (arritmias). Não é 1ª linha para depressão na APS.', alerta:'ci' },
+  { cat:'Psiq', drug:'Clonazepam', classe:'Benzodiazepínico', indicacao:'TAG (curto prazo), transtorno do pânico, epilepsia, abstinência alcoólica', dose:'0,5–2 mg 2–3×/dia; epilepsia: até 20 mg/dia', ci:'Miastenia grave, insuficiência respiratória grave, dependência prévia a BZD/álcool', obs:'Risco de dependência física e psicológica. Uso máximo recomendado: 2–4 semanas para ansiedade. Em idosos: risco de quedas e confusão (Lista de Beers). NÃO é tratamento de longo prazo para ansiedade. Controlado (lista C1 — receita especial azul).', alerta:'ci' },
+  { cat:'Psiq', drug:'Quetiapina', classe:'Antipsicótico atípico', indicacao:'Esquizofrenia, TB (mania e depressão bipolar), depressão resistente (adjuvante), insônia (off-label, baixas doses)', dose:'Psicose: 150–800 mg/dia; adjuvante/insônia: 25–100 mg/noite', ci:'Pacientes em risco de prolongamento de QT', obs:'Causa sedação, ganho de peso, dislipidemia, hiperglicemia. Monitorar glicemia, lipídios e ECG. Em idosos com demência: aumento de mortalidade (black box FDA). Receita especial (lista B2) para alguns estados.', alerta:'ci' },
+
+  // ── INFECCIOLOGIA / ANTIBIÓTICOS ───────────────────────────────
+  { cat:'Infec', drug:'Amoxicilina', classe:'Penicilina aminopenicilina', indicacao:'Faringite estreptocócica, otite média, sinusite bacteriana, pneumonia leve (comunidade)', dose:'500 mg 8/8h ou 875 mg 12/12h × 7–10 dias (adulto)', ci:'Alergia a penicilinas (anafilaxia)', obs:'Exantema maculopapular em mononucleose infecciosa (diagnóstico diferencial importante). Bem tolerada. Principal antibiótico da APS. Alergia cruzada com cefalosporinas: ~1–2%.', alerta:'tip' },
+  { cat:'Infec', drug:'Amoxicilina + Clavulanato', classe:'Penicilina + inibidor de β-lactamase', indicacao:'Sinusite bacteriana, otite resistente, mordedura, infecções de pele, ITU complicada', dose:'875/125 mg 12/12h × 7–10 dias', ci:'Alergia a penicilinas, hepatite colestática prévia por amoxicilina/clavulanato', obs:'Clavulanato: causa maior frequência de diarreia. Tomar com alimentos. Reservar para casos sem resposta a amoxicilina simples.', alerta:'ci' },
+  { cat:'Infec', drug:'Azitromicina', classe:'Macrolídeo', indicacao:'Pneumonia atípica (Mycoplasma, Chlamydophila), faringite (alergia à penicilina), DST (clamídia, cancro mole)', dose:'500 mg/dia × 3 dias (pneumonia), 1g dose única (clamídia)', ci:'Hepatopatia grave, prolongamento de QT, uso de amiodarona', obs:'Alta taxa de resistência do Streptococcus pyogenes no Brasil — não usar como 1ª linha para faringite. Boa penetração tecidual, meia-vida longa (1×/dia). Interação com anticoagulantes.', alerta:'ci' },
+  { cat:'Infec', drug:'Ciprofloxacino', classe:'Fluoroquinolona', indicacao:'Pielonefrite (ambulatorial), infecções por bacilos gram-negativos, TB (casos específicos)', dose:'500 mg 12/12h × 7 dias (pielonefrite)', ci:'Gravidez, < 18 anos (relativa), tendinopatia prévia por quinolona, epilepsia (relativa)', obs:'Risco de ruptura de tendão (Aquiles) — especialmente em idosos + corticoide. Prolongamento de QT. Uso racional: evitar em infecções banais (resistência crescente). Interação com cálcio/antácidos (reduz absorção).', alerta:'ci' },
+  { cat:'Infec', drug:'Nitrofurantoína', classe:'Antibiótico urinário', indicacao:'Cistite não complicada em adultos (1ª linha)', dose:'100 mg 6/6h × 5 dias (macrocristal) ou 100 mg 12/12h × 5 dias (liberação prolongada)', ci:'TFGe < 30 mL/min (não atinge concentração urinária eficaz), gestação a termo (risco de hemólise neonatal)', obs:'Não usar para infecções sistêmicas (concentra apenas na urina). Tomar com alimentos (reduz efeitos GI). Coloração alaranjada da urina (normal — orientar paciente).', alerta:'tip' },
+  { cat:'Infec', drug:'Metronidazol', classe:'Nitroimidazol', indicacao:'Vaginose bacteriana, tricomoníase, giardíase, amebíase, infecções anaeróbias, H. pylori', dose:'400–500 mg 8/8h × 7 dias (vaginose); 2g dose única (tricomoníase)', ci:'1º trimestre da gravidez (relativa — evitar se possível), hipersensibilidade', obs:'Efeito antabuse com álcool (náusea intensa, vômito, rubor) → orientar abstinência durante e por 48h após tratamento. Gosto metálico frequente. Tratamento do parceiro em tricomoníase.', alerta:'ci' },
+  { cat:'Infec', drug:'Rifampicina + Isoniazida + Pirazinamida + Etambutol', classe:'Esquema RHZE (Anti-TB)', indicacao:'Tuberculose pulmonar e extrapulmonar', dose:'Dose fixa combinada conforme peso: 40–59 kg: 3 comp/dia; ≥60 kg: 4 comp/dia × 2 meses; depois RH × 4 meses', ci:'Hepatopatia grave (avaliar individualmente), neurite óptica (etambutol)', obs:'Rifampicina: coloração alaranjada de secreções (urina, lágrima) — orientar. Isoniazida: piridoxina (B6) para prevenir neuropatia periférica em grupos de risco. Monitorar TGO/TGP mensalmente. TDO é prioritário.', alerta:'ci' },
+
+  // ── ENDOCRINOLOGIA ─────────────────────────────────────────────
+  { cat:'End', drug:'Levotiroxina', classe:'Hormônio tireoidiano sintético (T4)', indicacao:'Hipotireoidismo primário, hipotireoidismo central, nódulo tireoidiano (supressão seletiva)', dose:'1,6 mcg/kg/dia (adulto jovem saudável); 25–50 mcg (idosos, cardiopatas) — titular por TSH', ci:'Tireotoxicose não tratada, IAM agudo', obs:'Tomar em jejum, 30 min antes do café. Espaçar 4h de ferro, cálcio, IBP, colestiramina (reduzem absorção). Ajustar dose na gravidez (+25–50%). Reavaliação com TSH após 4–6 semanas de cada ajuste.', alerta:'tip' },
+  { cat:'End', drug:'Vitamina D (Colecalciferol)', classe:'Vitamina lipossolúvel / pró-hormônio', indicacao:'Deficiência/insuficiência de vit D, raquitismo, osteoporose (adjuvante), risco de quedas em idosos', dose:'Deficiência: 50.000 UI/semana × 8 semanas; manutenção: 1.000–2.000 UI/dia; idosos: 2.000 UI/dia', ci:'Hipercalcemia, hipercalciúria grave, sarcoidose (pode elevar calcemia)', obs:'Dosar 25(OH)D para guiar tratamento. Meta: 30–60 ng/mL. Tomar com refeição (lipofílica). Monitorar cálcio sérico se doses altas. Suplementar junto com cálcio em osteoporose.', alerta:'tip' },
+  { cat:'End', drug:'Ácido Fólico', classe:'Vitamina do complexo B (B9)', indicacao:'Prevenção de defeitos do tubo neural (pré-concepção e 1º trimestre), anemia megaloblástica, gestação', dose:'400–800 mcg/dia (prevenção pré-natal); até 5 mg/dia se histórico de DTN ou uso de antiepilépticos', ci:'Sem contraindicações absolutas em doses habituais', obs:'Iniciar idealmente 1–3 meses antes da concepção. Continuar até pelo menos 12 semanas de gestação. Não substitui ferro (funções distintas). Dosar B12 antes de repor folato isoladamente (pode mascarar deficiência de B12).', alerta:'tip' },
+  { cat:'End', drug:'Sulfato Ferroso', classe:'Suplemento mineral (ferro II)', indicacao:'Anemia ferropriva, suplementação na gravidez, profilaxia em lactentes', dose:'Adulto (tratamento): 200 mg/dia (40 mg Fe elementar/dose) 2–3×/dia entre refeições; gestação: 40 mg Fe elementar/dia a partir de 20 sem', ci:'Hemocromatose, anemias não ferroprivas, hemossiderose', obs:'Tomar em jejum ou com suco de laranja (vitamina C aumenta absorção). Fezes escurecidas (normal — orientar). Constipação frequente. Espaçar 2h de antiácidos, leite, chá, café. Monitorar Hb após 4–8 semanas.', alerta:'tip' },
+
+  // ── ORTOPEDIA / OSTEOMUSCULAR ──────────────────────────────────
+  { cat:'Orto', drug:'Ibuprofeno', classe:'AINE (Anti-inflamatório não esteroidal)', indicacao:'Dor musculoesquelética aguda (lombalgia, entorse, tendinopatia), febre, dismenorreia', dose:'400–600 mg 8/8h com alimentos × 5–7 dias (adulto); máx 2400 mg/dia', ci:'Úlcera péptica ativa, DRC (TFGe<30), insuficiência cardíaca descompensada, 3º trimestre de gravidez, anticoagulação', obs:'Sempre usar por menor dose e menor tempo possível. Associar gastroproteção (omeprazol) em idosos e pacientes de risco GI. Evitar combinação com corticoide oral (↑risco de sangramento). AINE tópico (gel) tem menor risco sistêmico.', alerta:'ci' },
+  { cat:'Orto', drug:'Naproxeno', classe:'AINE de meia-vida longa', indicacao:'Artrite gotosa aguda, dor musculoesquelética, dismenorreia, artrose', dose:'500 mg 12/12h com alimentos × 5–10 dias; máx 1000 mg/dia', ci:'Igual ao ibuprofeno: úlcera ativa, DRC, ICC descompensada, gestação 3º tri', obs:'Perfil CV mais favorável que diclofenaco e celecoxibe em alguns estudos. Intervalo de 12h facilita adesão. Gastroproteção recomendada em idosos e risco GI. Preferível ao ibuprofeno na gota aguda.', alerta:'ci' },
+  { cat:'Orto', drug:'Diclofenaco gel 1%', classe:'AINE tópico', indicacao:'Osteoartrite de joelho e mãos, tendinopatias, dor localizada de partes moles', dose:'Aplicar 2–4g na área afetada 3–4×/dia (100mg/aplicação de 4g)', ci:'Lesão cutânea aberta na área de aplicação, alergia a AINE', obs:'Absorção sistêmica muito menor que via oral (~6%) — ideal para idosos, pacientes com risco GI/renal/CV. Pode causar dermatite de contato local. Eficácia comparável ao AINE oral na artrose de joelho em estudos recentes.', alerta:'tip' },
+  { cat:'Orto', drug:'Paracetamol (Acetaminofeno)', classe:'Analgésico/Antipirético não-AINE', indicacao:'Dor leve a moderada (artrose, lombalgia), febre, dor pós-operatória', dose:'500–1000 mg 6/6h; máx 4g/dia (adulto saudável); máx 2g/dia (hepatopata, alcoolismo, idoso frágil)', ci:'Hepatopatia grave, alcoolismo ativo, uso de outros produtos com paracetamol simultaneamente', obs:'1ª linha analgésica na artrose (SBR/ACR). Seguro em gestantes, idosos e pacientes com contraindicação a AINE. Principal causa de hepatotoxicidade aguda em superdose — atentar para produtos combinados (Tylenol, Resfenol, NyQuil etc).', alerta:'tip' },
+  { cat:'Orto', drug:'Ciclobenzaprina', classe:'Relaxante muscular (ação central)', indicacao:'Espasmo muscular agudo associado a lombalgia, cervicalgia, contraturas musculares', dose:'5–10 mg 8/8h × 2–3 semanas (máximo); começar com 5mg em idosos', ci:'IAM agudo, arritmias, bloqueio AV, glaucoma de ângulo fechado, retenção urinária, hipertireoidismo, uso de IMAO', obs:'Estrutura similar a ADT — efeitos anticolinérgicos (boca seca, sonolência, constipação). Usar pela menor duração possível. Evitar em idosos (Lista de Beers — risco de quedas e confusão). Não usar como monossintomático sem AINE associado.', alerta:'ci' },
+  { cat:'Orto', drug:'Colchicina', classe:'Antimitótico / Antigotoso', indicacao:'Gota aguda (1ª linha se precoce), profilaxia de crises durante início do alopurinol, pericardite', dose:'Crise aguda: 1mg + 0,5mg 1h depois (dose baixa — mesma eficácia com menos efeitos GI). Profilaxia: 0,5mg 1–2×/dia', ci:'DRC grave (TFGe<30 — reduzir dose), hepatopatia grave, uso de inibidores potentes de CYP3A4/P-gp (claritromicina, cetoconazol)', obs:'Diarreia é efeito colateral frequente e dose-dependente — protocolo de baixa dose tem melhor tolerância. Iniciar idealmente nas primeiras 12–24h da crise. Não é eficaz para artrites de outras causas. Toxicidade grave: mielossupressão, miopatia.', alerta:'ci' },
+  { cat:'Orto', drug:'Alopurinol', classe:'Inibidor da xantina oxidase (hipouricemiante)', indicacao:'Gota crônica com ≥2 crises/ano, tofos, nefropatia por urato, nefrolitíase por ácido úrico', dose:'Iniciar 100 mg/dia; aumentar 100mg a cada 2–4 semanas até ácido úrico <6 mg/dL; dose usual 200–400 mg/dia; máx 800 mg/dia', ci:'Reação de hipersensibilidade prévia ao alopurinol, uso de azatioprina ou mercaptopurina sem ajuste de dose', obs:'NÃO iniciar durante crise aguda (pode precipitar ou prolongar). Iniciar profilaxia com colchicina 0,5mg/dia por 3–6 meses ao começar alopurinol. Reduzir dose em DRC. Síndrome de Stevens-Johnson: rara, mais frequente em asiáticos — testar HLA-B*58:01 se disponível.', alerta:'ci' },
+  { cat:'Orto', drug:'Alendronato', classe:'Bisfosfonato (inibidor de reabsorção óssea)', indicacao:'Osteoporose pós-menopáusica e masculina, osteoporose por corticoide', dose:'70 mg/semana VO em jejum (osteoporose) ou 10mg/dia; osteoporose por corticoide: 70mg/semana', ci:'Esofagite grave/estenose esofágica, hipocalcemia não corrigida, incapacidade de permanecer ereto 30min, DRC grave (TFGe<35)', obs:'Tomar em jejum com copo cheio de água (200mL) e ficar ereto por 30 minutos — previne esofagite. Não ingerir alimento ou medicação por 30–60min. Associar cálcio + vitamina D. Drug holiday após 5 anos de uso. Osteonecrose de mandíbula: risco baixo com bisfosfonato oral.', alerta:'ci' },
+  { cat:'Orto', drug:'Metotrexato', classe:'DMARD convencional sintético / Antimetabólito', indicacao:'Artrite reumatoide (anchor drug), artrite psoriásica, outras artrites inflamatórias', dose:'7,5–25 mg/semana SC ou VO (dose única semanal); iniciar 7,5–10mg/semana e titular', ci:'Gestação e lactação (teratogênico — categoria X), hepatopatia ativa, alcoolismo, imunossupressão grave, DRC significativa', obs:'Sempre associar ácido fólico 5–10mg/semana (no dia seguinte ao MTX) — reduz toxicidade sem perda de eficácia. Monitorar: hemograma, TGO/TGP, creatinina mensalmente (primeiros 6 meses) depois trimestralmente. Controle contraceptivo rigoroso.', alerta:'ci' },
+  { cat:'Orto', drug:'Pregabalina', classe:'Anticonvulsivante / Ligante α2-δ (dor neuropática)', indicacao:'Fibromialgia, dor neuropática (diabética, pós-herpética), TAG, epilepsia focal', dose:'Fibromialgia: 75mg 12/12h → 150mg 12/12h → máx 450 mg/dia; iniciar baixo e titular', ci:'Hipersensibilidade; cautela em DRC (reduzir dose conforme TFGe)', obs:'Efeitos: tontura, sonolência, ganho de peso, edema — iniciar com dose baixa. Potencial de abuso (C-V nos EUA). Retirada gradual (não suspender abruptamente — risco de convulsão). Reduzir dose em TFGe <60. Benefício na fibromialgia: reduz dor e melhora qualidade do sono.', alerta:'ci' },
+  { cat:'Orto', drug:'Duloxetina', classe:'IRSN (Inibidor da recaptação de serotonina e noradrenalina)', indicacao:'Fibromialgia, dor neuropática diabética, depressão, TAG', dose:'30–60 mg/dia, 1×/dia; iniciar 30mg/dia × 1 semana, aumentar para 60mg/dia', ci:'Uso concomitante de IMAO, hepatopatia grave, glaucoma de ângulo fechado não tratado', obs:'Reduz dor e fadiga na fibromialgia (aprovado FDA). Melhora também humor e funcionalidade. Efeitos iniciais: náusea, boca seca, insônia — tendem a diminuir com o tempo. Não suspender abruptamente (síndrome de descontinuação).', alerta:'tip' },
+];
+
+let farmaFilter = 'all';
+
+function setFarmaFilter(cat, btn) {
+  farmaFilter = cat;
+  document.querySelectorAll('.farma-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFarma();
+}
+
+function renderFarma() {
+  const search = document.getElementById('farmaSearch').value.toLowerCase();
+  const tbody = document.getElementById('farmaTableBody');
+
+  let data = farmaData;
+  if (farmaFilter !== 'all') data = data.filter(d => d.cat === farmaFilter);
+  if (search) data = data.filter(d =>
+    d.drug.toLowerCase().includes(search) ||
+    d.classe.toLowerCase().includes(search) ||
+    d.indicacao.toLowerCase().includes(search) ||
+    d.obs.toLowerCase().includes(search)
+  );
+
+  if (data.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" class="no-results">Nenhum medicamento encontrado.</td></tr>`;
+    return;
+  }
+
+  const tagMap = { CV:'tag-cv', Meta:'tag-meta', Resp:'tag-resp', Psiq:'tag-psiq', Infec:'tag-infec', End:'tag-end', Orto:'tag-orto' };
+  const catLabel = { CV:'Cardiovascular', Meta:'Metabólico', Resp:'Respiratório', Psiq:'Psiquiatria', Infec:'Infecciologia', End:'Endocrinologia', Orto:'Ortop./Musc.' };
+
+  tbody.innerHTML = data.map(d => `
+    <tr>
+      <td>
+        <div class="farma-drug">${d.drug}</div>
+        <div class="farma-class" style="color:var(--text-muted); margin-top:0.2rem">${d.classe}</div>
+      </td>
+      <td><span class="farma-tag ${tagMap[d.cat]}">${catLabel[d.cat]}</span></td>
+      <td style="color:var(--text-dim)">${d.indicacao}</td>
+      <td><span class="farma-dose">${d.dose}</span></td>
+      <td style="color:var(--text-dim)">
+        ${d.ci}
+        ${d.alerta === 'ci' ? `<div class="farma-alert">⚠ Atenção às contraindicações</div>` : ''}
+      </td>
+      <td>
+        ${d.obs}
+        ${d.alerta === 'tip' ? `<div class="farma-tip">💡 Dica clínica</div>` : ''}
+      </td>
+    </tr>
+  `).join('');
+}
+
+// RASTREAMENTO DATA
+const rastreioData = {
+  cancer: {
+    title: 'Rastreamento Oncológico',
+    icon: '🎗️',
+    items: [
+      {
+        title: 'Câncer de Colo do Útero (Colo Uterino)',
+        color: '#fc8181',
+        populacao: 'Mulheres 25–64 anos',
+        metodo: 'Citologia cervical (Papanicolau)',
+        intervalo: '<strong>Anual × 2 anos consecutivos negativos</strong> → depois a cada 3 anos',
+        inicio: '25 anos (ou início da vida sexual se mais cedo)',
+        fim: '64 anos (se 2 últimos exames negativos nos últimos 5 anos)',
+        note: 'HPV-DNA testing: ainda não é recomendado pelo MS como método de rastreio primário na rede pública de forma universal. Vacinação HPV: meninas 9–14 anos e meninos 11–14 anos no PNI — não substitui o rastreio citológico.',
+        alerta: 'Mulheres imunossuprimidas (HIV+, transplantadas): rastreio anual independente da faixa etária e sem intervalar para 3 anos.'
+      },
+      {
+        title: 'Câncer de Mama',
+        color: '#fc8181',
+        populacao: 'Mulheres 50–69 anos',
+        metodo: 'Mamografia bilateral',
+        intervalo: '<strong>A cada 2 anos</strong> (MS/INCA)',
+        inicio: '50 anos',
+        fim: '69 anos',
+        note: 'USPSTF 2024 e SBM recomendam início aos 40 anos — há divergência entre sociedades. Na prática clínica brasileira: discutir benefício-risco individualmente entre 40–49 anos. Autoexame das mamas: não é recomendado como método de rastreio isolado, mas o exame clínico das mamas deve ser realizado durante a consulta.',
+        alerta: 'Alto risco (BRCA1/2, histórico familiar de 1º grau <50 anos, biópsia prévia de lesão proliferativa): iniciar aos 35 anos com mamografia anual ± RNM de mamas.'
+      },
+      {
+        title: 'Câncer Colorretal',
+        color: '#f6ad55',
+        populacao: 'Homens e mulheres 50–75 anos',
+        metodo: 'Pesquisa de sangue oculto nas fezes (PSOF-imunoquímica) OU colonoscopia',
+        intervalo: '<strong>PSOF anual</strong> ou colonoscopia a cada 10 anos',
+        inicio: '45–50 anos (USPSTF recomenda 45; MS ainda recomenda 50)',
+        fim: '75 anos (avaliar individualmente 76–85 anos)',
+        note: 'No SUS: rastreio oportunístico ainda limitado. Colonoscopia é o padrão-ouro e permite remoção de pólipos no mesmo ato. PSOF positivo obriga colonoscopia diagnóstica.',
+        alerta: 'Início precoce (40 anos ou 10 anos antes do caso índice): histórico familiar de CCR ou pólipos adenomatosos em familiar de 1º grau antes dos 60 anos, doença inflamatória intestinal, PAF, HNPCC (Lynch).'
+      },
+      {
+        title: 'Câncer de Pulmão',
+        color: '#4fd1c5',
+        populacao: 'Tabagistas/ex-tabagistas 50–80 anos, carga ≥20 maços-ano',
+        metodo: 'TC de tórax de baixa dose (LDCT)',
+        intervalo: '<strong>Anual</strong>',
+        inicio: '50 anos com carga tabágica ≥20 maços-ano (ou ex-tabagista cessou <15 anos)',
+        fim: '80 anos ou após 15 anos de cessação',
+        note: 'USPSTF A (2021). No Brasil: INCA ainda não incorporou formalmente ao rastreio populacional — disponível em alguns centros especializados. Reduz mortalidade por CCR em ~20% (NLST). Rx de tórax: NÃO é adequado para rastreio.',
+        alerta: 'Cessar o tabagismo continua sendo a medida isolada mais eficaz para reduzir mortalidade por câncer de pulmão — oferecer abordagem para cessação em toda consulta.'
+      },
+      {
+        title: 'Câncer de Próstata (PSA)',
+        color: '#4fd1c5',
+        populacao: 'Homens a partir de 50 anos (45 anos em alto risco)',
+        metodo: 'PSA total + toque retal',
+        intervalo: '<strong>Decisão compartilhada</strong> — não rastreio sistemático universal',
+        inicio: '50 anos (risco médio); 45 anos (negros, familiar 1º grau com Ca próstata <65 anos)',
+        fim: 'Não indicado após 75 anos ou expectativa de vida <10 anos',
+        note: 'CFM e SBU: oferecer rastreio com decisão compartilhada a partir dos 50 anos. USPSTF C (decisão individual). PSA não é específico — pode elevar em HPB, prostatite, ejaculação recente. PSA > 4 ng/mL ou velocidade de PSA elevada → urologista.',
+        alerta: 'Não dosar PSA isoladamente sem conversa sobre benefícios (detecção precoce) e riscos (sobrediagnóstico, sobretratamento com disfunção erétil e incontinência).'
+      },
+      {
+        title: 'Câncer de Pele (Melanoma)',
+        color: '#f6ad55',
+        populacao: 'Adultos com fatores de risco',
+        metodo: 'Exame dermatológico clínico (inspeção corpo inteiro)',
+        intervalo: '<strong>Anual</strong> em alto risco',
+        inicio: 'Sem idade definida para rastreio universal — oportunístico na consulta',
+        fim: 'Sem limite definido',
+        note: 'Rastreio universal não é recomendado (evidência insuficiente USPSTF I). Em alto risco (fototipo I/II, nevos atípicos múltiplos, histórico familiar, exposição ocupacional): encaminhar a dermatologia. Regra ABCDE: Assimetria, Borda, Cor, Diâmetro >6mm, Evolução.',
+        alerta: 'Qualquer lesão suspeita pelo ABCDE → encaminhar à dermatologia sem demora. Orientar fotoproteção e autoexame da pele anualmente.'
+      },
+      {
+        title: 'Câncer de Estômago',
+        color: '#b794f4',
+        populacao: 'Não há rastreio populacional no Brasil',
+        metodo: 'Endoscopia digestiva alta (EDA)',
+        intervalo: 'Não recomendado como rastreio universal',
+        inicio: 'Investigar sintomas de alarme (disfagia, emagrecimento, vômitos, sangramento)',
+        fim: '—',
+        note: 'H. pylori: erradicação reduz risco de câncer gástrico — rastrear e tratar em pacientes sintomáticos e familiares de 1º grau de pacientes com Ca gástrico. Populações de alta incidência: descendentes de japoneses, coreanos — considerar rastreio oportunístico.',
+        alerta: 'Sintomas de alarme para EDA urgente: disfagia progressiva, emagrecimento inexplicado, hematêmese, melena, massa epigástrica palpável, ferropenia sem causa.'
+      },
+    ]
+  },
+  cv: {
+    title: 'Rastreamento Cardiovascular',
+    icon: '❤️',
+    items: [
+      {
+        title: 'Hipertensão Arterial',
+        color: '#fc8181',
+        populacao: 'Adultos ≥18 anos',
+        metodo: 'Medida da PA em consulta (método auscultatório ou oscilométrico validado)',
+        intervalo: '<strong>A cada consulta</strong> (pelo menos anual em adultos)',
+        inicio: '18 anos',
+        fim: 'Sem limite',
+        note: 'PA elevada em 1 consulta (≥130/80): repetir em 2 ocasiões distintas. MAPA ou MRPA se suspeita de HAS do jaleco branco. Rastreio de LOA: ECG, fundo de olho, creatinina + EAS, em todo hipertenso ao diagnóstico.',
+        alerta: 'PA ≥180/120 mmHg na consulta mesmo em assintomático → não ignorar — avaliar LOA e iniciar tratamento.'
+      },
+      {
+        title: 'Risco Cardiovascular Global',
+        color: '#fc8181',
+        populacao: 'Adultos 20–79 anos sem DCV estabelecida',
+        metodo: 'Escore de Risco Global (ERG) / Framingham adaptado ao Brasil',
+        intervalo: '<strong>A cada 5 anos</strong> em baixo risco; anual em moderado',
+        inicio: '20 anos (se fatores de risco presentes)',
+        fim: '79 anos',
+        note: 'Incorpora: idade, sexo, PA, colesterol, tabagismo, DM. Estratifica em baixo (<10%), intermediário (10–20%) e alto risco (>20%) de evento CV em 10 anos. Guia metas terapêuticas de LDL e indicação de estatina.',
+        alerta: 'DCV estabelecida (IAM, AVC, DAP, revascularização prévia) = risco muito alto automaticamente — não calcular escore, tratar agressivamente.'
+      },
+      {
+        title: 'Fibrilação Atrial',
+        color: '#fc8181',
+        populacao: 'Adultos ≥65 anos',
+        metodo: 'Palpação de pulso (irregular) + ECG se suspeita',
+        intervalo: '<strong>A cada consulta</strong> (palpação de pulso)',
+        inicio: '65 anos',
+        fim: 'Sem limite',
+        note: 'FA é a arritmia sustentada mais comum — prevalência de 2–3% na população geral e >10% em ≥80 anos. Causa mais de 20% dos AVC isquêmicos. ECG: confirma diagnóstico. Holter: FA paroxística. Calcular CHA₂DS₂-VASc para anticoagulação.',
+        alerta: 'FA detectada → calcular CHA₂DS₂-VASc. Score ≥2 (H) ou ≥3 (M): anticoagulação oral indicada (DOAC preferido sobre varfarina).'
+      },
+      {
+        title: 'Aneurisma de Aorta Abdominal',
+        color: '#f6ad55',
+        populacao: 'Homens 65–75 anos tabagistas (≥100 cigarros na vida)',
+        metodo: 'USG de aorta abdominal (1 vez)',
+        intervalo: '<strong>Uma única vez</strong> nessa população',
+        inicio: '65 anos',
+        fim: '75 anos',
+        note: 'USPSTF B. Prevalência de AAA (≥3cm) em tabagistas homens idosos: ~7–8%. Maioria assintomático — ruptura tem mortalidade >80%. USG tem sensibilidade >95%. Mulheres e não-tabagistas: evidência insuficiente para rastreio universal.',
+        alerta: 'AAA ≥5,5cm ou crescimento >1cm/ano → encaminhar à cirurgia vascular para avaliação de reparo.'
+      },
+    ]
+  },
+  metabolico: {
+    title: 'Rastreamento Metabólico',
+    icon: '🧬',
+    items: [
+      {
+        title: 'Diabetes Mellitus Tipo 2',
+        color: '#f6ad55',
+        populacao: 'Adultos ≥35 anos com sobrepeso/obesidade ou fatores de risco',
+        metodo: 'Glicemia de jejum OU HbA1c OU TOTG',
+        intervalo: '<strong>A cada 3 anos</strong> (normal); anual em pré-diabetes ou alto risco',
+        inicio: '35 anos com IMC ≥25 kg/m² + 1 FR adicional; qualquer idade com IMC ≥30 kg/m²',
+        fim: 'Sem limite em pacientes com fatores de risco',
+        note: 'Fatores de risco: HAS, dislipidemia, SOP, DMG prévia, familiar 1º grau DM2, sedentarismo, acanthosis nigricans. Pré-diabetes (GJ 100–125 ou HbA1c 5,7–6,4%): intervenção intensiva no estilo de vida reduz progressão em 58%.',
+        alerta: 'DMG: toda gestante deve realizar TOTG 75g entre 24–28 semanas de gestação, independentemente de fatores de risco.'
+      },
+      {
+        title: 'Dislipidemia',
+        color: '#f6ad55',
+        populacao: 'Adultos a partir de 20–35 anos conforme risco',
+        metodo: 'Lipidograma completo (CT, LDL, HDL, TG)',
+        intervalo: '<strong>Homens ≥35 anos</strong> e <strong>mulheres ≥45 anos</strong> sem FR: a cada 5 anos. Com FR: a partir de 20 anos, a cada 1–3 anos',
+        inicio: 'Com FR: 20 anos; Crianças com HF ou DM1: ≥10 anos',
+        fim: 'Sem limite',
+        note: 'Em jejum de 12h para TG acurado. Se TG >400: calcular LDL direto. Calcular ERG após lipidograma para estratificação de risco e meta de LDL. Criança com familiar de 1º grau com hipercolesterolemia familiar ou DCV precoce: rastrear a partir de 2–8 anos.',
+        alerta: 'LDL >190 sem causa secundária óbvia em adulto jovem → suspeitar de Hipercolesterolemia Familiar — rastrear familiares em cascata.'
+      },
+      {
+        title: 'Obesidade e IMC',
+        color: '#f6ad55',
+        populacao: 'Adultos ≥18 anos',
+        metodo: 'IMC (peso/altura²) + Circunferência abdominal',
+        intervalo: '<strong>A cada consulta</strong>',
+        inicio: '18 anos',
+        fim: 'Sem limite',
+        note: 'IMC: <18,5 (baixo peso), 18,5–24,9 (normal), 25–29,9 (sobrepeso), ≥30 (obesidade). Circunferência abdominal: risco aumentado ≥80cm (F) e ≥94cm (H); risco muito alto ≥88cm (F) e ≥102cm (H). Em idosos: IMC ≥22 é aceitável.',
+        alerta: 'IMC ≥30 + comorbidade (DM, HAS, SAS, artrose): indicação formal de intervenção intensiva e avaliação de cirurgia bariátrica. IMC ≥40 ou ≥35 com comorbidade grave: candidato à cirurgia bariátrica.'
+      },
+      {
+        title: 'Disfunção Tireoidiana (TSH)',
+        color: '#b794f4',
+        populacao: 'Mulheres ≥50 anos; gestantes; recém-nascidos',
+        metodo: 'TSH',
+        intervalo: '<strong>Mulheres ≥50 anos</strong>: a cada 5 anos. <strong>Gestantes</strong>: 1ª consulta pré-natal. <strong>Neonatos</strong>: Teste do Pezinho (dias 3–5)',
+        inicio: '50 anos em mulheres; gravidez; ao nascer',
+        fim: 'Sem limite',
+        note: 'Hipotireoidismo subclínico: TSH 4,5–10 com T4L normal — tratar se sintomas, gestação, ou TSH >10. Hipertireoidismo subclínico: TSH <0,4 — avaliar causa e risco de FA e osteoporose. Rastreio universal de homens e adultos jovens: evidência insuficiente.',
+        alerta: 'Na gestação: TSH >2,5 no 1º trimestre necessita avaliação — hipotireoidismo gestacional compromete o neurodesenvolvimento fetal.'
+      },
+    ]
+  },
+  osseo: {
+    title: 'Rastreamento Ósseo, Renal e Nutricional',
+    icon: '🦴',
+    items: [
+      {
+        title: 'Osteoporose (DXA)',
+        color: '#76e4f7',
+        populacao: 'Mulheres ≥65 anos; homens ≥70 anos; ou mais jovens com fatores de risco',
+        metodo: 'Densitometria óssea (DXA) — colo femoral + coluna L1-L4',
+        intervalo: '<strong>A cada 2 anos</strong> se osteopenia; a cada 1–2 anos em tratamento; a cada 5 anos se normal e baixo risco',
+        inicio: '65 anos (F) / 70 anos (H); 50 anos com FR (corticoide crônico, hipogonadismo, DM1, tabagismo, baixo peso)',
+        fim: 'Sem limite',
+        note: 'FRAX: calcular risco de fratura a 10 anos mesmo sem DXA — indica tratamento se risco de fratura de quadril >3% ou fratura maior >20% em 10 anos. Calcular FRAX em toda mulher pós-menopáusica com fraturas.',
+        alerta: 'Fratura por fragilidade em qualquer idade (trauma mínimo → fratura) = osteoporose grave por definição clínica — iniciar tratamento independentemente do T-score.'
+      },
+      {
+        title: 'Doença Renal Crônica',
+        color: '#76e4f7',
+        populacao: 'Diabéticos, hipertensos, histórico familiar de DRC, >60 anos',
+        metodo: 'Creatinina sérica + TFGe (CKD-EPI) + EAS (proteinúria/albuminúria)',
+        intervalo: '<strong>Anual</strong> em diabéticos e hipertensos',
+        inicio: 'Ao diagnóstico de DM ou HAS; ≥60 anos como rotina',
+        fim: 'Sem limite',
+        note: 'Microalbuminúria (30–300 mg/g creatinina): marca de lesão renal precoce em DM e HAS — rastrear anualmente. TFGe <60 por ≥3 meses = DRC. Referência ao nefrologista: TFGe <30 ou progressão >5mL/min/ano.',
+        alerta: 'IECA/BRA: nefroprotetor em DM + proteinúria — iniciar mesmo com PA normal se microalbuminúria presente. iSGLT2: adicionar se TFGe≥20 + DM2 ou IC.'
+      },
+      {
+        title: 'Deficiência de Vitamina D',
+        color: '#68d391',
+        populacao: 'Idosos ≥65 anos, gestantes, crianças <2 anos, osteoporose, má-absorção',
+        metodo: '25(OH)-vitamina D sérica',
+        intervalo: '<strong>Anual</strong> em grupos de risco; após reposição: repetir em 3 meses',
+        inicio: 'Grupos de risco em qualquer idade',
+        fim: 'Sem limite',
+        note: 'Valores: suficiente ≥30 ng/mL; insuficiência 20–29; deficiência <20; deficiência grave <12. Rastreio universal: não recomendado (USPSTF D para adultos assintomáticos sem FR). Suplementação universal em idosos >65 anos: 800–2000 UI/dia sem necessidade de dosar.',
+        alerta: 'Deficiência grave (<12 ng/mL) em idoso: risco elevado de quedas e fraturas — reposição urgente e avaliação de DXA.'
+      },
+      {
+        title: 'Anemia Ferropriva',
+        color: '#68d391',
+        populacao: 'Crianças 9–12 meses; gestantes; mulheres em idade fértil com suspeita',
+        metodo: 'Hemoglobina capilar ou venosa',
+        intervalo: '<strong>9–12 meses</strong> de idade (triagem universal); gestantes: 1ª consulta e 3º trimestre',
+        inicio: '9 meses em lactentes',
+        fim: 'Rastreio oportunístico em adultos sintomáticos',
+        note: 'Anemia = Hb <11 g/dL (crianças <5a e gestantes), <12 g/dL (F adulta), <13 g/dL (H adulto). Causa mais comum de anemia no Brasil: ferropriva. VCM baixo + ferritina baixa = confirma. Ferropenia sem anemia em mulheres: tratar também.',
+        alerta: 'Anemia ferropriva em homem adulto ou mulher pós-menopausa sem causa óbvia → pesquisa de sangue oculto nas fezes e avaliação GI para excluir neoplasia ou úlcera.'
+      },
+    ]
+  },
+  infeccioso: {
+    title: 'Rastreamento Infeccioso e IST',
+    icon: '🦠',
+    items: [
+      {
+        title: 'HIV / AIDS',
+        color: '#68d391',
+        populacao: 'Adultos 15–65 anos (rastreio universal); gestantes; populações-chave',
+        metodo: 'Teste rápido de HIV ou ELISA + western blot',
+        intervalo: '<strong>Ao menos uma vez</strong> na vida (15–65 anos). <strong>Anual</strong> em populações-chave (HSH, profissionais do sexo, usuários de drogas IV, parcerias múltiplas)',
+        inicio: '15 anos (ou início da vida sexual)',
+        fim: '65 anos (rastreio universal)',
+        note: 'Gestantes: obrigatório no 1º trimestre, repetir no 3º. Teste rápido disponível na UBS. Resultado positivo: teste confirmatório + encaminhamento ao SAE. PrEP: indicada em populações-chave de alto risco (disponível no SUS).',
+        alerta: 'HIV não tratado = imunossupressão → rastrear TB, toxoplasmose, CMV, criptococose. Carga viral indetectável = Intransmissível (I=I).'
+      },
+      {
+        title: 'Sífilis',
+        color: '#68d391',
+        populacao: 'Gestantes; adultos sexualmente ativos (oportunístico)',
+        metodo: 'VDRL + FTA-ABS (confirmatório) ou Teste rápido treponêmico',
+        intervalo: '<strong>Gestantes</strong>: 1ª consulta, 3º trimestre e no parto. <strong>Populações de risco</strong>: anual ou conforme exposição',
+        inicio: 'Início da atividade sexual',
+        fim: 'Sem limite em populações de risco',
+        note: 'Sífilis congênita: prevenível com tratamento durante a gravidez. VDRL positivo + FTA-ABS positivo = sífilis confirmada. Titular VDRL para guiar tratamento e controle de cura. Notificação compulsória.',
+        alerta: 'Sífilis primária: cancro duro indolor no local de inoculação — pode passar despercebido. Sífilis terciária: neurossífilis, aortite, goma sifilítica — confirmar com VDRL no líquor se suspeita.'
+      },
+      {
+        title: 'Hepatite B (HBsAg)',
+        color: '#f6ad55',
+        populacao: 'Gestantes; profissionais de saúde; populações de risco; não vacinados',
+        metodo: 'HBsAg + Anti-HBs',
+        intervalo: '<strong>Gestantes</strong>: 1ª consulta pré-natal. <strong>Rastreio</strong>: ao menos 1 vez em adultos não vacinados',
+        inicio: 'Qualquer idade em grupos de risco',
+        fim: 'Sem limite',
+        note: 'Vacinação: 3 doses no calendário do PNI (ao nascer, 2m, 6m). Anti-HBs ≥10 UI/L = imunizado. HBsAg+ → HBeAg, Anti-HBe, carga viral HBV, transaminases, avaliação de fibrose. Transmissão vertical: imunoglobulina + vacina ao RN nas primeiras 12h.',
+        alerta: 'Hepatite B crônica: risco de cirrose e hepatocarcinoma — USG de abdome + alfafetoproteína a cada 6 meses em cirróticos ou fibrose avançada.'
+      },
+      {
+        title: 'Hepatite C (Anti-HCV)',
+        color: '#f6ad55',
+        populacao: 'Adultos 45–75 anos (rastreio universal); populações de risco',
+        metodo: 'Anti-HCV (ELISA); se positivo → HCV-RNA quantitativo',
+        intervalo: '<strong>Uma vez</strong> na vida (45–75 anos). <strong>Anual</strong> em HSH, usuários de drogas IV, hemodialisados',
+        inicio: '45 anos (rastreio universal); qualquer idade em populações de risco',
+        fim: '75 anos',
+        note: 'Sem vacina disponível. Anti-HCV positivo + HCV-RNA positivo = hepatite C ativa → encaminhar ao hepatologista/infectologista. Antivirais de ação direta (DAA): cura em >95% dos casos em 8–12 semanas. Disponíveis no SUS para todos os genótipos.',
+        alerta: 'Anti-HCV positivo com HCV-RNA negativo: infecção resolvida — sem tratamento necessário, mas excluir falso-positivo com western blot se ELISA de baixa avidez.'
+      },
+      {
+        title: 'Tuberculose (Rastreio em Contatos e ILTB)',
+        color: '#68d391',
+        populacao: 'Contatos de TB bacilífera; populações vulneráveis; candidatos a imunossupressores',
+        metodo: 'PPD (teste tuberculínico) ou IGRA',
+        intervalo: '<strong>Ao diagnóstico de caso índice</strong>; antes de imunossupressor',
+        inicio: 'Qualquer idade',
+        fim: 'Sem limite',
+        note: 'PPD ≥5mm em imunossuprimidos/PVHIV = ILTB. PPD ≥10mm em outros = ILTB. IGRA: preferível em vacinados com BCG (menos falsos-positivos). Tratar ILTB: Isoniazida 6–9 meses. Rastreio ativo na UBS: tosse >3 semanas = investigar TB.',
+        alerta: 'Qualquer paciente com tosse ≥3 semanas na UBS: ofertar baciloscopia de escarro × 2 amostras — independentemente de suspeita clínica pré-teste.'
+      },
+    ]
+  },
+  faixa: {
+    title: 'Exames por Faixa Etária',
+    icon: '👤',
+    faixas: [
+      {
+        faixa: 'Recém-nascido',
+        icon: '👶',
+        cor: '#68d391',
+        subtitulo: '0–28 dias',
+        exames: [
+          { exam: 'Teste do Pezinho (PKU, hipotireoidismo, hemoglobinopatias, hiperplasia adrenal, fibrose cística)', freq: '3–5º dia' },
+          { exam: 'Teste do Olhinho (Reflexo vermelho — retinoblastoma, catarata congênita)', freq: 'Maternidade' },
+          { exam: 'Teste da Orelhinha (Triagem auditiva neonatal — OAE)', freq: 'Antes da alta' },
+          { exam: 'Teste da Linguinha (freio lingual)', freq: 'Maternidade' },
+          { exam: 'Teste do Coraçãozinho (Oximetria de pulso — cardiopatia congênita)', freq: 'Maternidade' },
+          { exam: 'Vacinas: BCG + Hepatite B', freq: 'Ao nascer' },
+        ]
+      },
+      {
+        faixa: 'Lactente e Pré-escolar',
+        icon: '🧒',
+        cor: '#4fd1c5',
+        subtitulo: '1 mês – 5 anos',
+        exames: [
+          { exam: 'Hemoglobina capilar (anemia ferropriva)', freq: '9–12 meses' },
+          { exam: 'Curvas de crescimento (peso, altura, PC)', freq: 'Cada consulta' },
+          { exam: 'Marcos de desenvolvimento neuropsicomotor (Denver)', freq: 'Cada consulta' },
+          { exam: 'Audição e visão (acuidade + reflexo vermelho)', freq: 'Anual após 3 anos' },
+          { exam: 'EAS (rotina)', freq: 'A partir de 2 anos, anual' },
+          { exam: 'Vacinas do PNI (VRH, Penta, VIP, PCV10, Men C, SRC, VZ, FA, DTP, VOP)', freq: 'Calendário PNI' },
+          { exam: 'Ferro profilático (1 mg/kg/dia) + Vitamina D (400–600 UI/dia)', freq: '6 meses–2 anos' },
+        ]
+      },
+      {
+        faixa: 'Escolar e Adolescente',
+        icon: '🧑',
+        cor: '#b794f4',
+        subtitulo: '6–19 anos',
+        exames: [
+          { exam: 'IMC + pressão arterial', freq: 'Anual' },
+          { exam: 'Acuidade visual e audição', freq: 'A cada 2 anos' },
+          { exam: 'Lipidograma (se HF de DCV ou DM)', freq: 'A partir de 10 anos' },
+          { exam: 'Glicemia (se obesidade + FR)', freq: 'Anual se FR' },
+          { exam: 'Hemoglobina (adolescentes com menstruação intensa)', freq: 'Anual' },
+          { exam: 'Vacinas: dTpa (11 anos), HPV (9–14 F; 11–14 M), Influenza (anual), Meningocócica ACWY', freq: 'Calendário PNI' },
+          { exam: 'Saúde mental (rastreio de depressão/ansiedade ≥12 anos)', freq: 'Anual' },
+          { exam: 'Rastreio IST (se vida sexual ativa)', freq: 'Anual' },
+        ]
+      },
+      {
+        faixa: 'Adulto Jovem',
+        icon: '🧑‍💼',
+        cor: '#f6ad55',
+        subtitulo: '20–39 anos',
+        exames: [
+          { exam: 'PA + IMC + CA', freq: 'A cada consulta' },
+          { exam: 'Lipidograma (se FR)', freq: 'A cada 3–5 anos' },
+          { exam: 'Glicemia (se sobrepeso + FR)', freq: 'A cada 3 anos' },
+          { exam: 'Papanicolau (mulheres 25–64 anos)', freq: 'Anual × 2 → 3/3 anos' },
+          { exam: 'VDRL + HIV + HBsAg (gestantes e populações de risco)', freq: 'Anual/gestação' },
+          { exam: 'TSH (mulheres com sintomas)', freq: 'Conforme clínica' },
+          { exam: 'Vacinas: Influenza (anual), dT (10/10 anos), HPV (até 45 anos se não vacinado)', freq: 'Calendário adulto' },
+          { exam: 'Saúde mental (PHQ-9 / GAD-7 se sintomas)', freq: 'Conforme clínica' },
+        ]
+      },
+      {
+        faixa: 'Adulto (Meia-idade)',
+        icon: '🧑‍🦳',
+        cor: '#fc8181',
+        subtitulo: '40–59 anos',
+        exames: [
+          { exam: 'PA + IMC + CA + ERG cardiovascular', freq: 'Anual' },
+          { exam: 'Glicemia / HbA1c', freq: 'A cada 3 anos (anual se FR)' },
+          { exam: 'Lipidograma completo', freq: 'A cada 3 anos' },
+          { exam: 'Papanicolau (mulheres)', freq: 'A cada 3 anos (se 2 negativos)' },
+          { exam: 'Mamografia (mulheres 50–69)', freq: 'A cada 2 anos' },
+          { exam: 'PSOF ou colonoscopia (a partir de 45–50 anos)', freq: 'Anual (PSOF) / 10 anos (colonoscopia)' },
+          { exam: 'PSA (homens — decisão compartilhada a partir de 45–50)', freq: 'Anual ou bienal' },
+          { exam: 'TSH (mulheres ≥50 anos)', freq: 'A cada 5 anos' },
+          { exam: 'Creatinina + EAS (diabéticos e hipertensos)', freq: 'Anual' },
+          { exam: 'ECG de repouso (em hipertensos ou sintomáticos)', freq: 'Conforme indicação' },
+          { exam: 'TC tórax baixa dose (tabagistas ≥20 maços-ano)', freq: 'Anual (50–80 anos)' },
+        ]
+      },
+      {
+        faixa: 'Idoso',
+        icon: '🧓',
+        cor: '#76e4f7',
+        subtitulo: '≥60 anos',
+        exames: [
+          { exam: 'PA + IMC + CA', freq: 'A cada consulta' },
+          { exam: 'Hemograma completo', freq: 'Anual' },
+          { exam: 'Glicemia + HbA1c', freq: 'Anual' },
+          { exam: 'Lipidograma + creatinina + EAS', freq: 'Anual' },
+          { exam: 'TSH', freq: 'A cada 5 anos (ou anual se disfunção)' },
+          { exam: 'DXA (densitometria óssea) — mulheres ≥65, homens ≥70', freq: 'A cada 2–5 anos' },
+          { exam: 'Vitamina D (25-OH)', freq: 'Anual em idosos com FR' },
+          { exam: 'Avaliação de quedas (Timed Up and Go, força de preensão)', freq: 'Anual' },
+          { exam: 'Rastreio de demência (MEEM, Fluência verbal)', freq: 'Anual ≥75 anos ou sintomas' },
+          { exam: 'Depressão (GDS-15 ou PHQ-9)', freq: 'Anual' },
+          { exam: 'Revisão de polifarmácia (critérios de Beers)', freq: 'A cada consulta' },
+          { exam: 'Avaliação nutricional (MAN)', freq: 'Semestral em frágeis' },
+          { exam: 'Papanicolau (mulheres 50–64): manter a cada 3 anos', freq: 'A cada 3 anos até 64' },
+          { exam: 'USG AAA (homens 65–75 tabagistas — 1 única vez)', freq: '1 única vez' },
+          { exam: 'Vacinas: Influenza (anual), Pneumocócica (PCV23 + PCV13), dT (reforço 10 anos), Herpes Zóster (≥60)', freq: 'Calendário PNI idoso' },
+        ]
+      },
+    ]
+  }
+};
+
+let rastreioView = 'cancer';
+
+function setRastreioView(view, btn) {
+  rastreioView = view;
+  document.querySelectorAll('.rastreio-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderRastreio();
+}
+
+function renderRastreio() {
+  const container = document.getElementById('rastreio-content');
+  const data = rastreioData[rastreioView];
+  if (!data) return;
+
+  if (rastreioView === 'faixa') {
+    container.innerHTML = `
+      <div class="faixa-etaria-grid">
+        ${data.faixas.map(f => `
+          <div class="faixa-card">
+            <div class="faixa-header" style="background: linear-gradient(135deg, ${f.cor}15, ${f.cor}05); border-bottom: 2px solid ${f.cor}40">
+              <div class="faixa-icon">${f.icon}</div>
+              <div>
+                <div class="faixa-title" style="color:${f.cor}">${f.faixa}</div>
+                <div class="faixa-subtitle">${f.subtitulo}</div>
+              </div>
+            </div>
+            <div class="faixa-body">
+              ${f.exames.map(e => `
+                <div class="faixa-item">
+                  <div class="faixa-dot" style="background:${f.cor}"></div>
+                  <div class="faixa-exam">${e.exam}</div>
+                  <div class="faixa-freq">${e.freq}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="rastreio-section">
+      <div class="rastreio-section-header">
+        <span class="rastreio-section-icon">${data.icon}</span>
+        <span class="rastreio-section-title">${data.title}</span>
+      </div>
+      <div class="rastreio-cards">
+        ${data.items.map(item => `
+          <div class="rastreio-card" style="--rc-color: ${item.color}">
+            <div class="rc-header">
+              <div class="rc-title">${item.title}</div>
+              <div class="rc-population" style="background:${item.color}15; border-color:${item.color}; color:${item.color}">${item.populacao}</div>
+            </div>
+            <div class="rc-row">
+              <span class="rc-label">Método</span>
+              <span class="rc-value">${item.metodo}</span>
+            </div>
+            <div class="rc-row">
+              <span class="rc-label">Intervalo</span>
+              <span class="rc-value">${item.intervalo}</span>
+            </div>
+            <div class="rc-row">
+              <span class="rc-label">Início</span>
+              <span class="rc-value">${item.inicio}</span>
+            </div>
+            <div class="rc-row">
+              <span class="rc-label">Fim</span>
+              <span class="rc-value">${item.fim}</span>
+            </div>
+            ${item.note ? `<div class="rc-note">💡 ${item.note}</div>` : ''}
+            ${item.alerta ? `<div class="rc-alert">⚠️ ${item.alerta}</div>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// Init
+renderGrid();
+renderFarma();
+renderRastreio();
+</script>
+
+</body>
+</html>
